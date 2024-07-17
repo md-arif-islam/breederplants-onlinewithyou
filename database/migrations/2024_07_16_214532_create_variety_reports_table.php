@@ -32,6 +32,7 @@ return new class extends Migration
             $table->boolean('cut_back')->default(false);
             $table->bigInteger('removed_flowers')->nullable();
             $table->boolean('caned')->default(false);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

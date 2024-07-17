@@ -8,10 +8,11 @@
         </div>
         <div class="card card-body">
             <div class="row mb-4">
-                @foreach(json_decode($sample->images, true) as $image)
-                    <div class="col-12 text-center mb-3">
+                @foreach($sample->images as $image)
+                    <div class="col-md-3">
                         <img src="{{ asset($image) }}" alt="Sample Image" style="max-width: 100%; height: auto;">
                     </div>
+
                 @endforeach
             </div>
             <div class="row">
@@ -78,10 +79,13 @@
             </div>
             <div class="d-flex justify-content-center mb-4">
                 <a href="" class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
-                <form action="{{ route('variety-samples.destroy', $sample->id) }}" method="POST" style="display:inline-block;">
+                <form action="" method="POST" style="display:inline-block;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-outline-danger me-2" onclick="return confirm('Are you sure you want to delete this sample?')"><i class="fas fa-trash"></i> Delete</button>
+                    <button type="submit" class="btn btn-sm btn-outline-danger me-2"
+                            onclick="return confirm('Are you sure you want to delete this sample?')"><i
+                            class="fas fa-trash"></i> Delete
+                    </button>
                 </form>
                 <a href="#" class="btn btn-sm btn-outline-info"><i class="fas fa-share-alt"></i> Share</a>
             </div>

@@ -1,11 +1,15 @@
 <?php
 
+namespace App\Http\Controllers\Backend;
 
-namespace App\Http\Controllers;
-
-use App\Models\VarietyReport;
+use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\VarietyReport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
+
+use Illuminate\Support\Facades\Validator;
 
 class VarietyReportController extends Controller
 {
@@ -33,8 +37,7 @@ class VarietyReportController extends Controller
         if ($request->has('sort')) {
             $sort = $request->input('sort');
             if ($sort == 'a-z') {
-                $query->orderBy('name', 'asc');
-                $query->orderBy('id', 'desc');
+                $query->orderBy(User::select('name')->whereColumn('users.id', 'variety_reports.grower_id'), 'asc');
             } elseif ($sort == 'first-item-last') {
                 $query->orderBy('id', 'asc');
             }
@@ -43,8 +46,6 @@ class VarietyReportController extends Controller
         }
 
         $varietyReports = $query->paginate(5);
-
-
 
         return view('backend.pages.variety_reports', compact('varietyReports', 'growers'));
     }
@@ -55,5 +56,59 @@ class VarietyReportController extends Controller
         return view('backend.pages.variety_report', compact('varietyReport'));
     }
 
-}
+    public function edit($id)
+    {
+        $varietyReport = VarietyReport::findOrFail($id);
+        $growers = User::where('role', 'grower')->get();
+        $breeders = User::where('role', 'breeder')->get();
 
+        return view('backend.pages.variety_report-edit', compact('varietyReport', 'growers', 'breeders'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'thumbnail' => 'required|mimes:jpeg,png,jpg|max:1024',
+            'name' => 'required|string|max:255',
+            'variety' => 'required|string|max:255',
+            'breeder_id' => 'required|exists:users,id',
+            'grower_id' => 'required|exists:users,id',
+            'amount_of_plants' => 'required|integer|min:1',
+            'amount_of_samples' => 'required|integer|min:1',
+            'next_sample_date' => 'nullable|date',
+            'pot_size' => 'nullable|string|max:255',
+            'pot_trial' => 'required|boolean',
+            'trial_location' => 'nullable|string|max:255',
+            'open_field_trial' => 'required|boolean',
+            'date_of_propagation' => 'nullable|date',
+            'date_of_potting' => 'nullable|date',
+            'cut_back' => 'required|boolean',
+            'removed_flowers' => 'nullable|integer|min:0',
+            'caned' => 'required|boolean',
+            'status' => 'required|boolean',
+        ]);
+
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+
+        $varietyReport = VarietyReport::findOrFail($id);
+        $data = $request->all();
+
+        if ($request->hasFile('thumbnail')) {
+            $image = $request->file('thumbnail');
+            $filename = Str::slug($request->name) . '-' . time() . '.' . $image->getClientOriginalExtension();
+            $path = 'uploads/variety_reports/' . $filename;
+
+            $image->move(public_path('uploads/variety_reports'), $filename);
+            $data['thumbnail'] = $path;
+        }
+
+        $varietyReport->update($data);
+
+        return redirect()->route('variety-reports.show', $varietyReport->id)
+            ->with('success', 'Variety Report updated successfully');
+    }
+}

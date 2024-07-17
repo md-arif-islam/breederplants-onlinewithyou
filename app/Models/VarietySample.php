@@ -4,11 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 class VarietySample extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'images',
         'variety_report_id',
@@ -25,35 +22,15 @@ class VarietySample extends Model
         'seeds',
         'seed_color',
         'amount_of_seeds',
+        'status',
     ];
 
-    /**
-     * Get the variety report that owns the sample.
-     */
+    protected $casts = [
+        'images' => 'array',
+    ];
+
     public function varietyReport()
     {
         return $this->belongsTo(VarietyReport::class);
-    }
-
-    /**
-     * Set the images attribute.
-     *
-     * @param  array  $value
-     * @return void
-     */
-    public function setImagesAttribute($value)
-    {
-        $this->attributes['images'] = json_encode($value);
-    }
-
-    /**
-     * Get the images attribute.
-     *
-     * @param  string  $value
-     * @return array
-     */
-    public function getImagesAttribute($value)
-    {
-        return json_decode($value, true);
     }
 }

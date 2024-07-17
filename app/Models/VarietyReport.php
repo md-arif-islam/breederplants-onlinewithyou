@@ -20,4 +20,9 @@ class VarietyReport extends Model
     {
         return $this->belongsTo(User::class, 'breeder_id')->where('role', 'breeder');
     }
+
+    public function samples()
+    {
+        return $this->hasMany(VarietySample::class);
+    }
 }

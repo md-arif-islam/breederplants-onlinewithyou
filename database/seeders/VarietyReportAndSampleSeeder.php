@@ -18,8 +18,8 @@ class VarietyReportAndSampleSeeder extends Seeder
                 'slug' => 'variety-report-' . $i,
                 'thumbnail' => 'uploads/variety_reports/1.png',
                 'variety' => 'Variety ' . $i,
-                'breeder_id' => rand(4, 13), // Breeder IDs (4-13)
-                'grower_id' => rand(4, 13), // Grower IDs (4-13)
+                'breeder_id' => rand(19, 23),
+                'grower_id' => rand(14, 18),
                 'amount_of_plants' => rand(10, 100),
                 'amount_of_samples' => rand(1, 10),
                 'next_sample_date' => now()->addDays(rand(1, 30)),
@@ -32,15 +32,16 @@ class VarietyReportAndSampleSeeder extends Seeder
                 'cut_back' => rand(0, 1),
                 'removed_flowers' => rand(0, 50),
                 'caned' => rand(0, 1),
+                'status' => true,
             ]);
 
             // Seed Variety Samples for each Variety Report
             for ($j = 1; $j <= 2; $j++) { // Assuming each report has 2 samples
                 VarietySample::create([
-                    'images' => json_encode([
+                    'images' => [
                         'uploads/variety_samples/1.png',
                         'uploads/variety_samples/2.png'
-                    ]),
+                    ],
                     'variety_report_id' => $varietyReport->id,
                     'date' => now()->subDays(rand(1, 30)),
                     'leaf_color' => 'Color ' . rand(1, 5),
@@ -55,6 +56,7 @@ class VarietyReportAndSampleSeeder extends Seeder
                     'seeds' => rand(1, 10),
                     'seed_color' => 'Color ' . rand(1, 5),
                     'amount_of_seeds' => rand(1, 10),
+                    'status' => true,
                 ]);
             }
         }

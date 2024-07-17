@@ -82,6 +82,16 @@
                                 <span class="name">Next sample date</span>
                                 <span>{{ $report->next_sample_date }}</span>
                             </div>
+                            <div class="d-flex justify-content-center mt-3">
+                                <a href="{{route('variety-reports.show',$report->id)}}" class="btn btn-sm btn-outline-primary me-2"><i class="fas fa-eye"></i> View</a>
+                                <a href="" class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
+                                <form action="" method="POST" style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-outline-danger me-2" onclick="return confirm('Are you sure you want to delete this variety report?')"><i class="fas fa-trash"></i> Delete</button>
+                                </form>
+                                <a href="#" class="btn btn-sm btn-outline-info"><i class="fas fa-share-alt"></i> Share</a>
+                            </div>
                         </div>
                     </div>
                 </div>

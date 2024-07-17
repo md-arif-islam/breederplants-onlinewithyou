@@ -28,6 +28,7 @@ return new class extends Migration
             $table->bigInteger('seeds')->nullable();
             $table->string('seed_color')->nullable();
             $table->bigInteger('amount_of_seeds')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
