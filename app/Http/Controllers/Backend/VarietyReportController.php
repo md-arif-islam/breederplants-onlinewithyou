@@ -7,7 +7,7 @@ use App\Models\VarietyReport;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class AdminVarietyReportController extends Controller
+class VarietyReportController extends Controller
 {
     public function index(Request $request)
     {
@@ -48,5 +48,12 @@ class AdminVarietyReportController extends Controller
 
         return view('backend.pages.variety_reports', compact('varietyReports', 'growers'));
     }
+
+    public function show($id)
+    {
+        $varietyReport = VarietyReport::with(['grower', 'breeder', 'samples'])->findOrFail($id);
+        return view('backend.pages.variety_report', compact('varietyReport'));
+    }
+
 }
 
