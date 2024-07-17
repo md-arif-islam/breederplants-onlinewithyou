@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
 
 Route::middleware(['auth'])->group(function () {
 
@@ -32,15 +32,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/variety_report/name/sample/name', function () {
         return view('frontend.pages.sample');
     });
+});
 
-
+// Only admin can access the dashboard
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('backend.dashboard');
+        return view('backend.pages.dashboard');
     })->name('dashboard');
 });
 
-
-//clear all route
+// Clear all caches
 Route::get('/clear', function () {
     Artisan::call('config:clear');
     Artisan::call('cache:clear');
