@@ -8,23 +8,18 @@ use App\Models\VarietySample;
 
 class VarietyReportAndSampleSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         // Seed Variety Reports
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             $varietyReport = VarietyReport::create([
-                'user_id' => 2,
+                'user_id' => 2, // Assuming user_id 2 exists
                 'name' => 'Variety Report ' . $i,
                 'slug' => 'variety-report-' . $i,
-                'thumbnail' => 'thumbnail' . $i . '.jpg',
+                'thumbnail' => 'uploads/variety_reports/1.png',
                 'variety' => 'Variety ' . $i,
-                'breeder_name' => 'Breeder ' . $i,
-                'grower_name' => 'Grower ' . $i,
+                'breeder_id' => rand(4, 13), // Breeder IDs (4-13)
+                'grower_id' => rand(4, 13), // Grower IDs (4-13)
                 'amount_of_plants' => rand(10, 100),
                 'amount_of_samples' => rand(1, 10),
                 'next_sample_date' => now()->addDays(rand(1, 30)),
@@ -40,9 +35,12 @@ class VarietyReportAndSampleSeeder extends Seeder
             ]);
 
             // Seed Variety Samples for each Variety Report
-            for ($j = 1; $j <= 3; $j++) { // Assuming each report has 3 samples
+            for ($j = 1; $j <= 2; $j++) { // Assuming each report has 2 samples
                 VarietySample::create([
-                    'images' => json_encode(['image' . $i . '_' . $j . '_1.jpg', 'image' . $i . '_' . $j . '_2.jpg']),
+                    'images' => json_encode([
+                        'uploads/variety_samples/1.png',
+                        'uploads/variety_samples/2.png'
+                    ]),
                     'variety_report_id' => $varietyReport->id,
                     'date' => now()->subDays(rand(1, 30)),
                     'leaf_color' => 'Color ' . rand(1, 5),

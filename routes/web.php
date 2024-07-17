@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminVarietyReportController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,12 +35,16 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-// Only admin can access the dashboard
-Route::middleware(['auth', 'admin'])->group(function () {
+
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('backend.pages.dashboard');
     })->name('dashboard');
+
+    Route::get('/variety-reports', [AdminVarietyReportController::class, 'index'])->name('variety-reports.index');
 });
+
 
 // Clear all caches
 Route::get('/clear', function () {

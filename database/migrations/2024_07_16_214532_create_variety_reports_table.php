@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('thumbnail');
             $table->string('variety');
-            $table->string('breeder_name');
-            $table->string('grower_name');
+            $table->string('breeder_id');
+            $table->string('grower_id');
             $table->bigInteger('amount_of_plants');
             $table->bigInteger('amount_of_samples');
             $table->date('next_sample_date')->nullable();

@@ -4,7 +4,12 @@
     @include('backend.layouts.partials.head')
 </head>
 <body>
-@yield('content')
+@include('backend.layouts.partials.sidebar')
+<main class="main-wrap">
+    @include('backend.layouts.partials.top-header')
+    @yield('content')
+    @include('backend.layouts.partials.footer')
+</main>
 @include('backend.layouts.partials.scripts')
 </body>
 
