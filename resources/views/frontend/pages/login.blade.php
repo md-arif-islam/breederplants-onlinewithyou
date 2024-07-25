@@ -37,12 +37,13 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                                 @enderror
+
                                             </div>
                                             <div class="login_footer form-group">
                                                 <a style="color: #50C878;" href="">Forgot password?</a>
                                             </div>
-                                            <div class="form-group submit">
-                                                <button type="submit" class="btn btn-fill-out btn-block hover-up" name="login">Log in</button>
+                                            <div class="form-group submit hover-up">
+                                                <button type="submit" class="btn btn-fill-out btn-block " name="login">Log in</button>
                                             </div>
                                         </form>
                                     </div>

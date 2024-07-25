@@ -12,7 +12,6 @@
                     <div class="col-md-3">
                         <img src="{{ asset($image) }}" alt="Sample Image" style="max-width: 100%; height: auto;">
                     </div>
-
                 @endforeach
             </div>
             <div class="row">
@@ -78,8 +77,8 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center mb-4">
-                <a href="" class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
-                <form action="" method="POST" style="display:inline-block;">
+                <a href="{{route('variety-samples.edit', $sample->id)}}" class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
+                <form action="{{route('variety-samples.destroy', $sample->id)}}" method="POST" style="display:inline-block;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-sm btn-outline-danger me-2"

@@ -1358,18 +1358,18 @@ textarea:focus {
 }
 
 .form-group input {
-  background: #fff;
-  border: 1px solid #e2e9e1;
-  height: 45px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  padding-left: 20px;
-  font-size: 13px;
-  color: #1a1a1a;
-  width: 100%;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  border-radius: 20px;
+    background: #fff;
+    border: 1px solid #e2e9e1;
+    height: 50px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding-left: 20px;
+    font-size: 13px;
+    color: #1a1a1a;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
 }
 
 .form-group input:focus {
@@ -9022,7 +9022,7 @@ span.fi-rs-apps {
 }
 
 /***************************
-    Page section margin 
+    Page section margin
 ****************************/
 .mtb-0 {
   margin: 0;

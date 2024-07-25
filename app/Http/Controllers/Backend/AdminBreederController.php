@@ -1,5 +1,5 @@
 <?php
-// GrowerController.php
+
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
@@ -7,17 +7,17 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class GrowerController extends Controller
+class AdminBreederController extends Controller
 {
     public function index()
     {
-        $growers = User::where('role', 'grower')->withCount('varietyReports')->get();
-        return view('backend.pages.growers', compact('growers'));
+        $breeders = User::where('role', 'breeder')->withCount('varietyReports')->get();
+        return view('backend.pages.breeders', compact('breeders'));
     }
 
     public function create()
     {
-        return view('backend.pages.grower-create');
+        return view('backend.pages.breeder-create');
     }
 
     public function store(Request $request)
@@ -33,17 +33,17 @@ class GrowerController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'grower',
+            'role' => 'breeder',
             'status' => $request->status,
         ]);
 
-        return redirect()->route('growers.index')->with('success', 'Grower created successfully.');
+        return redirect()->route('breeders.index')->with('success', 'Breeder created successfully.');
     }
 
     public function edit($id)
     {
-        $grower = User::findOrFail($id);
-        return view('backend.pages.grower-edit', compact('grower'));
+        $breeder = User::findOrFail($id);
+        return view('backend.pages.breeder-edit', compact('breeder'));
     }
 
     public function update(Request $request, $id)
@@ -54,14 +54,14 @@ class GrowerController extends Controller
             'status' => 'required|string',
         ]);
 
-        $grower = User::findOrFail($id);
-        $grower->update([
+        $breeder = User::findOrFail($id);
+        $breeder->update([
             'name' => $request->name,
             'email' => $request->email,
             'status' => $request->status,
         ]);
 
-        return redirect()->route('growers.index')->with('success', 'Grower updated successfully.');
+        return redirect()->route('breeders.index')->with('success', 'Breeder updated successfully.');
     }
 
     public function updatePassword(Request $request, $id)
@@ -70,19 +70,19 @@ class GrowerController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $grower = User::findOrFail($id);
-        $grower->update([
+        $breeder = User::findOrFail($id);
+        $breeder->update([
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('growers.edit', $id)->with('success', 'Password updated successfully.');
+        return redirect()->route('breeders.edit', $id)->with('success', 'Password updated successfully.');
     }
 
     public function destroy($id)
     {
-        $grower = User::findOrFail($id);
-        $grower->delete();
+        $breeder = User::findOrFail($id);
+        $breeder->delete();
 
-        return redirect()->route('growers.index')->with('success', 'Grower deleted successfully.');
+        return redirect()->route('breeders.index')->with('success', 'Breeder deleted successfully.');
     }
 }

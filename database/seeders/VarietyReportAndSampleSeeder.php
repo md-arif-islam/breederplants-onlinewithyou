@@ -13,7 +13,7 @@ class VarietyReportAndSampleSeeder extends Seeder
         // Seed Variety Reports
         for ($i = 1; $i <= 20; $i++) {
             $varietyReport = VarietyReport::create([
-                'user_id' => 2, // Assuming user_id 2 exists
+                'user_id' => 1, // Assuming user_id 2 exists
                 'name' => 'Variety Report ' . $i,
                 'slug' => 'variety-report-' . $i,
                 'thumbnail' => 'uploads/variety_reports/1.png',

@@ -88,8 +88,8 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center mb-4">
-                <a href="" class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
-                <form action="" method="POST" style="display:inline-block;">
+                <a href="{{route('variety-reports.edit', $varietyReport->id)}}" class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
+                <form action="{{route('variety-reports.destroy', $varietyReport->id)}}" method="POST" style="display:inline-block;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-sm btn-outline-danger me-2"
@@ -102,13 +102,18 @@
         </div>
 
         <div class="content-header mt-5">
-            <h2 class="content-title">Variety Samples</h2>
+            <div>
+                <h2 class="content-title card-title">Variety Samples</h2>
+            </div>
+            <div>
+                <a href="" class="btn btn-primary btn-sm rounded">Create new</a>
+            </div>
         </div>
         <div class="row">
             @foreach($varietyReport->samples as $sample)
                 <div class="col-xl-4 col-lg-6 col-md-12">
                     <div class="card card-product-grid">
-                        <a href="#" class="img-wrap">
+                        <a href="" class="img-wrap">
                             <img src="{{ asset($sample->images[count($sample->images) - 1]) }}" alt="Sample Image">
                         </a>
                         <div class="info-wrap">
@@ -169,8 +174,8 @@
                         </div>
                         <div class="d-flex justify-content-center mb-4">
                             <a href="{{route('variety-samples.show', $sample->id)}}" class="btn btn-sm btn-outline-info me-2"><i class="fas fa-eye"></i> View</a>
-                            <a href="" class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
-                            <form action="" method="POST" style="display:inline-block;">
+                            <a href="{{route('variety-samples.edit', $sample->id)}}" class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
+                            <form action="{{route('variety-samples.destroy', $sample->id)}}" method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-outline-danger me-2"

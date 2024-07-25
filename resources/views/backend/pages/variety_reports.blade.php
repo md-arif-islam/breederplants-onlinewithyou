@@ -8,7 +8,7 @@
                 <h2 class="content-title card-title">Variety Reports</h2>
             </div>
             <div>
-                <a href="#" class="btn btn-primary btn-sm rounded">Create new</a>
+                <a href="{{route('variety-reports.create')}}" class="btn btn-primary btn-sm rounded">Create new</a>
             </div>
         </div>
         <header class="card card-body mb-4">
@@ -21,16 +21,24 @@
                     <div class="col-lg-2 col-6 col-md-3">
                         <select name="sort" class="form-select" onchange="this.form.submit()">
                             <option value="">Select sort</option>
-                            <option value="a-z" {{ request('sort') == 'a-z' ? 'selected' : '' }}>Grower name (A-Z)</option>
-                            <option value="last-item-first" {{ request('sort') == 'last-item-first' ? 'selected' : '' }}>Last item first</option>
-                            <option value="first-item-last" {{ request('sort') == 'first-item-last' ? 'selected' : '' }}>First item last</option>
+                            <option value="a-z" {{ request('sort') == 'a-z' ? 'selected' : '' }}>Grower name (A-Z)
+                            </option>
+                            <option
+                                value="last-item-first" {{ request('sort') == 'last-item-first' ? 'selected' : '' }}>
+                                Last item first
+                            </option>
+                            <option
+                                value="first-item-last" {{ request('sort') == 'first-item-last' ? 'selected' : '' }}>
+                                First item last
+                            </option>
                         </select>
                     </div>
                     <div class="col-lg-2 col-6 col-md-3">
                         <select name="grower_id" class="form-select" onchange="this.form.submit()">
                             <option value="">Select grower</option>
                             @foreach($growers as $grower)
-                                <option value="{{ $grower->id }}" {{ request('grower_id') == $grower->id ? 'selected' : '' }}>{{ $grower->name }}</option>
+                                <option
+                                    value="{{ $grower->id }}" {{ request('grower_id') == $grower->id ? 'selected' : '' }}>{{ $grower->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -41,11 +49,11 @@
             @foreach($varietyReports as $report)
                 <div class="col-xl-4 col-lg-6 col-md-12">
                     <div class="card card-product-grid">
-                        <a href="#" class="img-wrap">
+                        <a href="{{route('variety-reports.show', $report->id)}}" class="img-wrap">
                             <img src="{{ asset($report->thumbnail) }}" alt="Product">
                         </a>
                         <div class="info-wrap">
-                            <a href="#" class="title">{{ $report->name }}</a>
+                            <a href="{{route('variety-reports.show', $report->id)}}" class="title">{{ $report->name }}</a>
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Variety</span>
                                 <span>{{ $report->variety }}</span>
@@ -83,14 +91,21 @@
                                 <span>{{ $report->next_sample_date }}</span>
                             </div>
                             <div class="d-flex justify-content-center mt-3">
-                                <a href="{{route('variety-reports.show',$report->id)}}" class="btn btn-sm btn-outline-primary me-2"><i class="fas fa-eye"></i> View</a>
-                                <a href="" class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
-                                <form action="" method="POST" style="display:inline-block;">
+                                <a href="{{route('variety-reports.show',$report->id)}}"
+                                   class="btn btn-sm btn-outline-primary me-2"><i class="fas fa-eye"></i> View</a>
+                                <a href="{{route('variety-reports.edit', $report->id)}}"
+                                   class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
+                                <form action="{{route('variety-reports.destroy', $report->id)}}" method="POST"
+                                      style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger me-2" onclick="return confirm('Are you sure you want to delete this variety report?')"><i class="fas fa-trash"></i> Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-outline-danger me-2"
+                                            onclick="return confirm('Are you sure you want to delete this variety report?')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
                                 </form>
-                                <a href="#" class="btn btn-sm btn-outline-info"><i class="fas fa-share-alt"></i> Share</a>
+                                <a href="#" class="btn btn-sm btn-outline-info"><i class="fas fa-share-alt"></i>
+                                    Share</a>
                             </div>
                         </div>
                     </div>

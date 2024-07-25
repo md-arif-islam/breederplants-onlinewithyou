@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\VarietyReport;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
-
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class VarietyReportController extends Controller
 {
@@ -45,15 +43,15 @@ class VarietyReportController extends Controller
             $query->orderBy('created_at', 'desc');
         }
 
-        $varietyReports = $query->paginate(5);
+        $varietyReports = $query->paginate(10);
 
-        return view('backend.pages.variety_reports', compact('varietyReports', 'growers'));
+        return view('frontend.pages.variety_reports', compact('varietyReports', 'growers'));
     }
 
     public function show($id)
     {
         $varietyReport = VarietyReport::with(['grower', 'breeder', 'samples'])->findOrFail($id);
-        return view('backend.pages.variety_report', compact('varietyReport'));
+        return view('frontend.pages.variety_report', compact('varietyReport'));
     }
 
     public function edit($id)
@@ -62,13 +60,13 @@ class VarietyReportController extends Controller
         $growers = User::where('role', 'grower')->get();
         $breeders = User::where('role', 'breeder')->get();
 
-        return view('backend.pages.variety_report-edit', compact('varietyReport', 'growers', 'breeders'));
+        return view('frontend.pages.variety_report-edit', compact('varietyReport', 'growers', 'breeders'));
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'thumbnail' => 'required|mimes:jpeg,png,jpg|max:1024',
+            'thumbnail' => 'nullable|mimes:jpeg,png,jpg|max:1024',
             'name' => 'required|string|max:255',
             'variety' => 'required|string|max:255',
             'breeder_id' => 'required|exists:users,id',
@@ -108,7 +106,17 @@ class VarietyReportController extends Controller
 
         $varietyReport->update($data);
 
-        return redirect()->route('variety-reports.show', $varietyReport->id)
+        return redirect()->route('frontend.variety-reports.show', $varietyReport->id)
             ->with('success', 'Variety Report updated successfully');
+    }
+
+    // destroy method
+    public function destroy($id)
+    {
+        $varietyReport = VarietyReport::findOrFail($id);
+        $varietyReport->delete();
+
+        return redirect()->route('variety-reports.index')
+            ->with('success', 'Variety Report deleted successfully');
     }
 }
