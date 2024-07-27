@@ -3,6 +3,13 @@
 @section('content')
 
     <section class="content-main">
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="content-header">
             <div>
                 <h2 class="content-title card-title">Growers</h2>
@@ -18,30 +25,46 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Total Variety Reports</th>
+                    <th>Company Name</th>
+                    <th>Company Email</th>
+                    <th>Contact Person</th>
+                    <th>Street</th>
+                    <th>City</th>
+                    <th>Postal Code</th>
+                    <th>Country</th>
+                    <th>Phone</th>
+                    <th>Website</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @php
-                    $index = 1;
-                @endphp
                 @foreach($growers as $grower)
                     <tr>
-                        <td>@php echo $index++; @endphp</td>
+                        <td>{{ $grower->id }}</td>
                         <td>{{ $grower->name }}</td>
-                        <td>{{ $grower->email }}</td>
-                        <td>{{ $grower->variety_reports_count }}</td>
+                        <td>{{ $grower->user->email }}</td>
+                        <td>{{ $grower->company_name }}</td>
+                        <td>{{ $grower->company_email }}</td>
+                        <td>{{ $grower->contact_person }}</td>
+                        <td>{{ $grower->street }}</td>
+                        <td>{{ $grower->city }}</td>
+                        <td>{{ $grower->postal_code }}</td>
+                        <td>{{ $grower->country }}</td>
+                        <td>{{ $grower->phone }}</td>
+                        <td>{{ $grower->website }}</td>
                         <td>
-                            @if($grower->status == 'active')
+                            @if($grower->user->status == 'active')
                                 <span class="badge rounded-pill alert-success">Active</span>
                             @else
                                 <span class="badge rounded-pill alert-danger">Inactive</span>
-                        @endif
+                            @endif
+                        </td>
                         <td>
-                            <a href="{{ route('growers.edit', $grower->id) }}" class="btn btn-sm font-sm rounded btn-brand">Edit</a>
-                            <form action="{{ route('growers.destroy', $grower->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirmDelete()">
+                            <a href="{{ route('growers.edit', $grower->id) }}"
+                               class="btn btn-sm font-sm rounded btn-brand">Edit</a>
+                            <form action="{{ route('growers.destroy', $grower->id) }}" method="POST"
+                                  style="display:inline-block;" onsubmit="return confirmDelete()">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm font-sm btn-light rounded">Delete</button>

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('variety_samples', function (Blueprint $table) {
             $table->id();
-            $table->json('images');
             $table->foreignId('variety_report_id')->constrained()->onDelete('cascade');
-            $table->date('date');
+            $table->json('images');
+            $table->date('sample_date');
             $table->string('leaf_color')->nullable();
             $table->bigInteger('amount_of_branches')->nullable();
             $table->bigInteger('flower_buds')->nullable();
@@ -30,6 +30,8 @@ return new class extends Migration
             $table->bigInteger('amount_of_seeds')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
+
+
         });
     }
 

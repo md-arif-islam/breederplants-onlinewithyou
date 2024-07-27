@@ -8,12 +8,16 @@ class User extends Authenticatable
 {
     // Allow mass assignment on the following fields
     protected $fillable = [
-        'name',
         'email',
         'password',
         'role',
         'status'
     ];
+
+    public function grower()
+    {
+        return $this->hasOne(Grower::class);
+    }
 
     // Relationships
     public function varietyReportsAsGrower()
