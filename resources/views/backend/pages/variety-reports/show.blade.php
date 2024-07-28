@@ -9,31 +9,37 @@
         <div class="card card-body">
             <div class="row mb-4">
                 <div class="col-12 text-center">
-                    <img src="{{ asset($varietyReport->thumbnail) }}" alt="Thumbnail"
+                    @php
+                        $samples = $varietyReport->samples;
+                        $lastSample = $samples->last();
+                        $images = $lastSample ? json_decode($lastSample->images) : [];
+                        $lastImage = $images[count($images) - 1] ;
+                    @endphp
+
+                    <img src="{{ asset($lastImage) }}" alt="Thumbnail"
                          style="max-width: 100%; height: auto;">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-4">
-                        <label class="form-label">Name</label>
-                        <p>{{ $varietyReport->name }}</p>
+                        <label class="form-label">Variety Name</label>
+                        <p>{{ $varietyReport->variety_name }}</p>
                     </div>
-                    <div class="mb-4">
-                        <label class="form-label">Variety</label>
-                        <p>{{ $varietyReport->variety }}</p>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">Breeder Name</label>
-                        <p>{{ $varietyReport->breeder->name ?? 'N/A' }}</p>
-                    </div>
+
                     <div class="mb-4">
                         <label class="form-label">Grower Name</label>
                         <p>{{ $varietyReport->grower->name ?? 'N/A' }}</p>
                     </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Breeder Name</label>
+                        <p>{{ $varietyReport->breeder->name ?? 'N/A' }}</p>
+                    </div>
+
                     <div class="mb-4">
                         <label class="form-label">Trial Location</label>
-                        <p>{{ $varietyReport->trial_location }}</p>
+                        <p>{{ $varietyReport->grower->name  }}</p>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Date of Propagation</label>
@@ -47,15 +53,16 @@
                         <label class="form-label">Amount of Plants</label>
                         <p>{{ $varietyReport->amount_of_plants }}</p>
                     </div>
-                    <div class="mb-4">
-                        <label class="form-label">Amount of Samples</label>
-                        <p>{{ $varietyReport->amount_of_samples }}</p>
-                    </div>
+
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
                         <label class="form-label">Next Sample Date</label>
-                        <p>{{ $varietyReport->next_sample_date }}</p>
+                        <p>{{ json_decode($varietyReport->samples_schedule)[0]}}</p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Amount of Samples</label>
+                        <p>{{ $varietyReport->samples->count() }}</p>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Pot Size</label>
@@ -69,18 +76,7 @@
                         <label class="form-label">Open Field Trial</label>
                         <p>{{ $varietyReport->open_field_trial ? 'Yes' : 'No' }}</p>
                     </div>
-                    <div class="mb-4">
-                        <label class="form-label">Cut Back</label>
-                        <p>{{ $varietyReport->cut_back ? 'Yes' : 'No' }}</p>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">Removed Flowers</label>
-                        <p>{{ $varietyReport->removed_flowers }}</p>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">Caned</label>
-                        <p>{{ $varietyReport->caned ? 'Yes' : 'No' }}</p>
-                    </div>
+
                     <div class="mb-4">
                         <label class="form-label">Status</label>
                         <p>{{ $varietyReport->status ? 'Active' : 'Inactive' }}</p>
@@ -88,8 +84,10 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center mb-4">
-                <a href="{{route('variety-reports.edit', $varietyReport->id)}}" class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
-                <form action="{{route('variety-reports.destroy', $varietyReport->id)}}" method="POST" style="display:inline-block;">
+                <a href="{{route('variety-reports.edit', $varietyReport->id)}}"
+                   class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
+                <form action="{{route('variety-reports.destroy', $varietyReport->id)}}" method="POST"
+                      style="display:inline-block;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-sm btn-outline-danger me-2"
@@ -113,8 +111,10 @@
             @foreach($varietyReport->samples as $sample)
                 <div class="col-xl-4 col-lg-6 col-md-12">
                     <div class="card card-product-grid">
+
+
                         <a href="" class="img-wrap">
-                            <img src="{{ asset($sample->images[count($sample->images) - 1]) }}" alt="Sample Image">
+                            {{--                            <img src="{{ asset($lastImage) }}" alt="Sample Image">--}}
                         </a>
                         <div class="info-wrap">
 
@@ -173,9 +173,12 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center mb-4">
-                            <a href="{{route('variety-samples.show', $sample->id)}}" class="btn btn-sm btn-outline-info me-2"><i class="fas fa-eye"></i> View</a>
-                            <a href="{{route('variety-samples.edit', $sample->id)}}" class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
-                            <form action="{{route('variety-samples.destroy', $sample->id)}}" method="POST" style="display:inline-block;">
+                            <a href="{{route('variety-samples.show', $sample->id)}}"
+                               class="btn btn-sm btn-outline-info me-2"><i class="fas fa-eye"></i> View</a>
+                            <a href="{{route('variety-samples.edit', $sample->id)}}"
+                               class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
+                            <form action="{{route('variety-samples.destroy', $sample->id)}}" method="POST"
+                                  style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-outline-danger me-2"

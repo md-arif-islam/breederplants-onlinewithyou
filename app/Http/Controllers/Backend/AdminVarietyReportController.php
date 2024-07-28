@@ -8,7 +8,6 @@ use App\Models\VarietyReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class AdminVarietyReportController extends Controller
 {
@@ -47,34 +46,27 @@ class AdminVarietyReportController extends Controller
         return view('backend.pages.variety-reports.index', compact('varietyReports', 'growers'));
     }
 
-
     public function create()
     {
         $growers = User::where('role', 'grower')->get();
         $breeders = User::where('role', 'breeder')->get();
-        return view('backend.pages.variety_report-create', compact('growers', 'breeders'));
+        return view('backend.pages.variety-reports.create', compact('growers', 'breeders'));
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'thumbnail' => 'required|mimes:jpeg,png,jpg|max:1024',
-            'name' => 'required|string|max:255|unique:App\Models\VarietyReport',
-            'variety' => 'required|string|max:255',
+            'variety_name' => 'required|string|max:255|unique:variety_reports',
             'breeder_id' => 'required|exists:users,id',
             'grower_id' => 'required|exists:users,id',
             'amount_of_plants' => 'required|integer|min:1',
-            'amount_of_samples' => 'required|integer|min:1',
-            'next_sample_date' => 'nullable|date',
             'pot_size' => 'nullable|string|max:255',
             'pot_trial' => 'required|boolean',
-            'trial_location' => 'nullable|string|max:255',
             'open_field_trial' => 'required|boolean',
             'date_of_propagation' => 'nullable|date',
             'date_of_potting' => 'nullable|date',
-            'cut_back' => 'required|boolean',
-            'removed_flowers' => 'nullable|integer|min:0',
-            'caned' => 'required|boolean',
+            'samples_schedule' => 'required|array',
+            'samples_schedule.*' => 'required|date',
             'status' => 'required|boolean',
         ]);
 
@@ -84,104 +76,79 @@ class AdminVarietyReportController extends Controller
 
         $varietyReport = new VarietyReport();
 
-        $varietyReport->name = $request->name;
-        $varietyReport->slug = Str::slug($request->name);
         $varietyReport->user_id = Auth::id();
-        $varietyReport->variety = $request->variety;
-        $varietyReport->breeder_id = $request->breeder_id;
         $varietyReport->grower_id = $request->grower_id;
+        $varietyReport->breeder_id = $request->breeder_id;
+        $varietyReport->variety_name = $request->variety_name;
         $varietyReport->amount_of_plants = $request->amount_of_plants;
-        $varietyReport->amount_of_samples = $request->amount_of_samples;
-        $varietyReport->next_sample_date = $request->next_sample_date;
         $varietyReport->pot_size = $request->pot_size;
         $varietyReport->pot_trial = $request->pot_trial;
-        $varietyReport->trial_location = $request->trial_location;
         $varietyReport->open_field_trial = $request->open_field_trial;
         $varietyReport->date_of_propagation = $request->date_of_propagation;
         $varietyReport->date_of_potting = $request->date_of_potting;
-        $varietyReport->cut_back = $request->cut_back;
-        $varietyReport->removed_flowers = $request->removed_flowers;
-        $varietyReport->caned = $request->caned;
+        $varietyReport->samples_schedule = json_encode($request->samples_schedule);
         $varietyReport->status = $request->status;
-
-        if ($request->hasFile('thumbnail')) {
-            $image = $request->file('thumbnail');
-            $filename = Str::slug($request->name) . '-' . time() . '.' . $image->getClientOriginalExtension();
-            $path = 'uploads/variety_reports/' . $filename;
-
-            $image->move(public_path('uploads/variety_reports'), $filename);
-            $varietyReport->thumbnail = $path;
-        }
 
         $varietyReport->save();
 
-
-        return redirect()->route('variety-reports.index')->with('Success');
-    }
-
-    public function update(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'thumbnail' => 'nullable|mimes:jpeg,png,jpg|max:1024',
-            'name' => 'required|string|max:255',
-            'variety' => 'required|string|max:255',
-            'breeder_id' => 'required|exists:users,id',
-            'grower_id' => 'required|exists:users,id',
-            'amount_of_plants' => 'required|integer|min:1',
-            'amount_of_samples' => 'required|integer|min:1',
-            'next_sample_date' => 'nullable|date',
-            'pot_size' => 'nullable|string|max:255',
-            'pot_trial' => 'required|boolean',
-            'trial_location' => 'nullable|string|max:255',
-            'open_field_trial' => 'required|boolean',
-            'date_of_propagation' => 'nullable|date',
-            'date_of_potting' => 'nullable|date',
-            'cut_back' => 'required|boolean',
-            'removed_flowers' => 'nullable|integer|min:0',
-            'caned' => 'required|boolean',
-            'status' => 'required|boolean',
-        ]);
-
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-
-        $varietyReport = VarietyReport::findOrFail($id);
-        $data = $request->all();
-
-        if ($request->hasFile('thumbnail')) {
-            $image = $request->file('thumbnail');
-            $filename = Str::slug($request->name) . '-' . time() . '.' . $image->getClientOriginalExtension();
-            $path = 'uploads/variety_reports/' . $filename;
-
-            $image->move(public_path('uploads/variety_reports'), $filename);
-            $data['thumbnail'] = $path;
-        }
-
-        $varietyReport->update($data);
-
-        return redirect()->route('variety-reports.show', $varietyReport->id)
-            ->with('success', 'Variety Report updated successfully');
+        return redirect()->route('variety-reports.index')->with('success', 'Variety Report created successfully.');
     }
 
     public function show($id)
     {
         $varietyReport = VarietyReport::with(['grower', 'breeder', 'samples'])->findOrFail($id);
-        return view('backend.pages.variety_report', compact('varietyReport'));
+        return view('backend.pages.variety-reports.show', compact('varietyReport'));
     }
 
     public function edit($id)
     {
         $varietyReport = VarietyReport::findOrFail($id);
-        $growers = User::where('role', 'grower')->get();
-        $breeders = User::where('role', 'breeder')->get();
+        $growers = User::where('role', 'grower')->with('grower')->get();
+        $breeders = User::where('role', 'breeder')->with('breeder')->get();
 
-        return view('backend.pages.variety_report-edit', compact('varietyReport', 'growers', 'breeders'));
+        return view('backend.pages.variety-reports.edit', compact('varietyReport', 'growers', 'breeders'));
     }
 
-    // destroy method
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'variety_name' => 'required|string|max:255|unique:variety_reports,variety_name,' . $id,
+            'breeder_id' => 'required|exists:users,id',
+            'grower_id' => 'required|exists:users,id',
+            'amount_of_plants' => 'required|integer|min:1',
+            'pot_size' => 'nullable|string|max:255',
+            'pot_trial' => 'required|boolean',
+            'open_field_trial' => 'required|boolean',
+            'date_of_propagation' => 'nullable|date',
+            'date_of_potting' => 'nullable|date',
+            'samples_schedule' => 'required|array',
+            'samples_schedule.*' => 'required|date',
+            'status' => 'required|boolean',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $varietyReport = VarietyReport::findOrFail($id);
+
+        $varietyReport->grower_id = $request->grower_id;
+        $varietyReport->breeder_id = $request->breeder_id;
+        $varietyReport->variety_name = $request->variety_name;
+        $varietyReport->amount_of_plants = $request->amount_of_plants;
+        $varietyReport->pot_size = $request->pot_size;
+        $varietyReport->pot_trial = $request->pot_trial;
+        $varietyReport->open_field_trial = $request->open_field_trial;
+        $varietyReport->date_of_propagation = $request->date_of_propagation;
+        $varietyReport->date_of_potting = $request->date_of_potting;
+        $varietyReport->samples_schedule = json_encode($request->samples_schedule);
+        $varietyReport->status = $request->status;
+
+        $varietyReport->save();
+
+        return redirect()->route('variety-reports.show', $varietyReport->id)
+            ->with('success', 'Variety Report updated successfully');
+    }
 
     public function destroy($id)
     {
