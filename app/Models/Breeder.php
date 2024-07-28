@@ -27,4 +27,10 @@ class Breeder extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function varietyReports()
+    {
+        return $this->hasMany(VarietyReport::class, 'breeder_id');
+    }
 }
+

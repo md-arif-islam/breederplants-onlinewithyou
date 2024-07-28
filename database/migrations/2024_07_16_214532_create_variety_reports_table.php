@@ -23,7 +23,7 @@ return new class extends Migration
             $table->boolean('open_field_trial')->default(false);
             $table->date('date_of_propagation')->nullable();
             $table->date('date_of_potting')->nullable();
-            $table->string('samples_schedule')->nullable();
+            $table->json('samples_schedule')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

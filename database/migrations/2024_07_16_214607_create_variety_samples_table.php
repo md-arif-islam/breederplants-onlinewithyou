@@ -31,7 +31,6 @@ return new class extends Migration
             $table->boolean('status')->default(true);
             $table->timestamps();
 
-
         });
     }
 

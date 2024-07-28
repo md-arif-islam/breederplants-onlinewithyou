@@ -12,6 +12,7 @@
             </div>
         </div>
         <header class="card card-body mb-4">
+
             <form method="GET" action="{{ route('variety-reports.index') }}">
                 <div class="row gx-3">
                     <div class="col-lg-4 col-md-6 me-auto">
@@ -34,11 +35,15 @@
                         </select>
                     </div>
                     <div class="col-lg-2 col-6 col-md-3">
+
                         <select name="grower_id" class="form-select" onchange="this.form.submit()">
                             <option value="">Select grower</option>
-                            @foreach($growers as $grower)
-                                <option
-                                    value="{{ $grower->id }}" {{ request('grower_id') == $grower->id ? 'selected' : '' }}>{{ $grower->name }}</option>
+                            @foreach($growers as $user)
+                                @if($user->grower)
+                                    <option value="{{ $user->id }}" {{ request('grower_id') == $user->id ? 'selected' : '' }}>
+                                        {{ $user->grower->name }}
+                                    </option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -49,26 +54,32 @@
             @foreach($varietyReports as $report)
                 <div class="col-xl-4 col-lg-6 col-md-12">
                     <div class="card card-product-grid">
-                        <a href="{{route('variety-reports.show', $report->id)}}" class="img-wrap">
-                            <img src="{{ asset($report->thumbnail) }}" alt="Product">
+                        @php
+                            $samples = $report->samples;
+                            $lastSample = $samples->last();
+                            $images = $lastSample ? json_decode($lastSample->images) : [];
+                            $lastImage = $images[count($images) - 1] ;
+                        @endphp
+
+                        <a href="{{ route('variety-reports.show', $report->id) }}" class="img-wrap">
+                            <img src="{{ asset($lastImage) }}" alt="Product">
                         </a>
+
                         <div class="info-wrap">
-                            <a href="{{route('variety-reports.show', $report->id)}}" class="title">{{ $report->name }}</a>
+                            <a href="{{route('variety-reports.show', $report->id)}}"
+                               class="title">{{ $report->variety_name }}</a>
+
                             <div class="d-flex justify-content-between sub-items">
-                                <span class="name">Variety</span>
-                                <span>{{ $report->variety }}</span>
+                                <span class="name">Grower name</span>
+                                <span>{{ $report->grower->name  }}</span>
                             </div>
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Breeder name</span>
-                                <span>{{ $report->breeder->name ?? 'N/A' }}</span>
-                            </div>
-                            <div class="d-flex justify-content-between sub-items">
-                                <span class="name">Grower name</span>
-                                <span>{{ $report->grower->name ?? 'N/A' }}</span>
+                                <span>{{ $report->breeder->name }}</span>
                             </div>
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Trial Location</span>
-                                <span>{{ $report->trial_location }}</span>
+                                <span>{{ $report->grower->name  }}</span>
                             </div>
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Date of propagation</span>
@@ -84,12 +95,13 @@
                             </div>
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Amount of samples</span>
-                                <span>{{ $report->amount_of_samples }}</span>
+                                <span>{{ $report->samples->count() }}</span>
                             </div>
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Next sample date</span>
-                                <span>{{ $report->next_sample_date }}</span>
+                                <span>{{ json_decode($report->samples_schedule)[0]}}</span>
                             </div>
+
                             <div class="d-flex justify-content-center mt-3">
                                 <a href="{{route('variety-reports.show',$report->id)}}"
                                    class="btn btn-sm btn-outline-primary me-2"><i class="fas fa-eye"></i> View</a>

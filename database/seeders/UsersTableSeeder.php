@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             ]
         ]);
 
-        // Create 5 growers and 5 breeders users
+        // Create 5 growers
         for ($i = 1; $i <= 5; $i++) {
             DB::table('users')->insert([
                 [
@@ -33,6 +33,11 @@ class UsersTableSeeder extends Seeder
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
+            ]);
+        }
+
+        for ($i = 1; $i <= 5; $i++) {
+            DB::table('users')->insert([
                 [
                     'email' => 'breeder'.$i.'@example.com',
                     'password' => Hash::make('password'),
@@ -40,7 +45,7 @@ class UsersTableSeeder extends Seeder
                     'status' => 'active',
                     'created_at' => now(),
                     'updated_at' => now(),
-                ]
+                ],
             ]);
         }
     }

@@ -14,39 +14,37 @@ class AdminVarietyReportController extends Controller
 {
     public function index(Request $request)
     {
-        $query = VarietyReport::with('grower', 'breeder');
-
-        // Get distinct grower names for the filter dropdown
-        $growers = User::where('role', 'grower')->get();
+        $query = VarietyReport::with(['grower', 'breeder']);
 
         // Search functionality
-        if ($request->has('search')) {
-            $query->where('name', 'like', '%' . $request->input('search') . '%')
-                ->orWhereHas('grower', function ($q) use ($request) {
-                    $q->where('name', 'like', '%' . $request->input('search') . '%');
-                });
-        }
-
-        if ($request->has('grower_id') && $request->input('grower_id') != '') {
-            $varietyReportsByGrower = VarietyReport::where('grower_id', $request->input('grower_id'))->paginate(5);
-            return view('backend.pages.variety_reports', ['varietyReports' => $varietyReportsByGrower, 'growers' => $growers]);
+        if ($search = $request->input('search')) {
+            $query->where('variety_name', 'LIKE', "%{$search}%");
         }
 
         // Sorting functionality
-        if ($request->has('sort')) {
-            $sort = $request->input('sort');
-            if ($sort == 'a-z') {
-                $query->orderBy(User::select('name')->whereColumn('users.id', 'variety_reports.grower_id'), 'asc');
-            } elseif ($sort == 'first-item-last') {
-                $query->orderBy('id', 'asc');
+        if ($sort = $request->input('sort')) {
+            switch ($sort) {
+                case 'a-z':
+                    $query->orderBy('variety_name', 'asc');
+                    break;
+                case 'last-item-first':
+                    $query->latest();
+                    break;
+                case 'first-item-last':
+                    $query->oldest();
+                    break;
             }
-        } else {
-            $query->orderBy('created_at', 'desc');
         }
 
-        $varietyReports = $query->paginate(5);
+        // Grower filter functionality
+        if ($growerId = $request->input('grower_id')) {
+            $query->where('grower_id', $growerId);
+        }
 
-        return view('backend.pages.variety_reports', compact('varietyReports', 'growers'));
+        $varietyReports = $query->paginate(12);
+        $growers = User::where('role', 'grower')->with('grower')->get();
+
+        return view('backend.pages.variety-reports.index', compact('varietyReports', 'growers'));
     }
 
 
