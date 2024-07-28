@@ -8,7 +8,7 @@
         </div>
         <div class="card card-body">
             <div class="row mb-4">
-                @foreach($sample->images as $image)
+                @foreach(json_decode($sample->images) as $image)
                     <div class="col-md-3">
                         <img src="{{ asset($image) }}" alt="Sample Image" style="max-width: 100%; height: auto;">
                     </div>
@@ -18,7 +18,7 @@
                 <div class="col-md-6">
                     <div class="mb-4">
                         <label class="form-label">Sample Date</label>
-                        <p>{{ $sample->date }}</p>
+                        <p>{{ $sample->sample_date }}</p>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Leaf Color</label>

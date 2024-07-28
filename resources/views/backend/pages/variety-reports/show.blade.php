@@ -104,7 +104,7 @@
                 <h2 class="content-title card-title">Variety Samples</h2>
             </div>
             <div>
-                <a href="" class="btn btn-primary btn-sm rounded">Create new</a>
+                <a href="{{route('variety-samples.create')}}" class="btn btn-primary btn-sm rounded">Create new</a>
             </div>
         </div>
         <div class="row">
@@ -112,15 +112,19 @@
                 <div class="col-xl-4 col-lg-6 col-md-12">
                     <div class="card card-product-grid">
 
+                        <a href="{{route('variety-samples.show', $sample->id)}}" class="img-wrap">
+                            @php
+                                $images = json_decode($sample->images);
+                                $lastImage = $images[count($images) - 1];
 
-                        <a href="" class="img-wrap">
-                            {{--                            <img src="{{ asset($lastImage) }}" alt="Sample Image">--}}
+                            @endphp
+                            <img src="{{ asset($lastImage) }}" alt="Sample Image">
                         </a>
                         <div class="info-wrap">
 
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Sample Date</span>
-                                <span>{{ $sample->date }}</span>
+                                <span>{{ $sample->sample_date }}</span>
                             </div>
 
                             <div class="d-flex justify-content-between sub-items">

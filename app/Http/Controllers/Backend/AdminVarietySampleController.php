@@ -9,33 +9,28 @@ use Illuminate\Support\Str;
 
 class AdminVarietySampleController extends Controller
 {
-    /**
-     * Display the specified sample.
-     */
-
     public function create()
     {
-        die();
-        return view('backend.pages.variety_sample-create');
+        return view('backend.pages.variety-samples.create');
     }
 
     public function show($id)
     {
         $sample = VarietySample::findOrFail($id);
-        return view('backend.pages.variety_sample', compact('sample'));
+        return view('backend.pages.variety-samples.index', compact('sample'));
     }
 
     public function edit($id)
     {
         $varietySample = VarietySample::findOrFail($id);
-        return view('backend.pages.variety_sample-edit', compact('varietySample'));
+        return view('backend.pages.variety-samples.edit', compact('varietySample'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'date' => 'required|date',
+            'sample_date' => 'required|date',
             'leaf_color' => 'nullable|string|max:255',
             'amount_of_branches' => 'nullable|integer',
             'flower_buds' => 'nullable|integer',
@@ -51,20 +46,9 @@ class AdminVarietySampleController extends Controller
         ]);
 
         $varietySample = VarietySample::findOrFail($id);
-        $images = $varietySample->images;
+        $images = json_decode($varietySample->images, true);
 
-        // Handle image deletion
-        if ($request->has('delete_images')) {
-            foreach ($request->delete_images as $image) {
-                if (($key = array_search($image, $images)) !== false) {
-                    unset($images[$key]);
-                    // Optionally delete the image file from storage
-                    if (file_exists(public_path($image))) {
-                        unlink(public_path($image));
-                    }
-                }
-            }
-        }
+
 
         // Handle new image uploads
         if ($request->hasFile('images')) {
@@ -76,11 +60,11 @@ class AdminVarietySampleController extends Controller
         }
 
         // Update images in the model
-        $varietySample->images = array_values($images);
+        $varietySample->images = json_encode(array_values($images));
 
         // Update other fields
         $varietySample->update([
-            'date' => $request->date,
+            'sample_date' => $request->sample_date,
             'leaf_color' => $request->leaf_color,
             'amount_of_branches' => $request->amount_of_branches,
             'flower_buds' => $request->flower_buds,
@@ -99,11 +83,8 @@ class AdminVarietySampleController extends Controller
             ->with('success', 'Variety Sample updated successfully');
     }
 
-    // destroy method
-
     public function destroy($id)
     {
-        // i want after delete go to vareity report show page
         $varietySample = VarietySample::findOrFail($id);
         $varietyReportId = $varietySample->variety_report_id;
         $varietySample->delete();
@@ -111,5 +92,4 @@ class AdminVarietySampleController extends Controller
         return redirect()->route('variety-reports.show', ['id' => $varietyReportId])
             ->with('success', 'Variety Sample deleted successfully');
     }
-
 }

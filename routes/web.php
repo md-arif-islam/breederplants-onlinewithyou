@@ -47,6 +47,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         return view('backend.pages.dashboard');
     })->name('dashboard');
 
+    Route::get('/variety-samples/create',  [AdminVarietySampleController::class, 'create'])->name('variety-samples.create');
+
     Route::get('/variety-reports', [AdminVarietyReportController::class, 'index'])->name('variety-reports.index');
     Route::get('/variety-reports/create', [AdminVarietyReportController::class, 'create'])->name('variety-reports.create');
     Route::post('/variety-reports', [AdminVarietyReportController::class, 'store'])->name('variety-reports.store');
@@ -56,7 +58,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/variety-reports/{id}', [AdminVarietyReportController::class, 'destroy'])->name('variety-reports.destroy');
 
     Route::get('/variety-samples/{id}', [AdminVarietySampleController::class, 'show'])->name('variety-samples.show');
-    Route::get('/variety-samples/create', [AdminVarietySampleController::class, 'create'])->name('variety-samples.create');
     Route::get('/variety-samples/{id}/edit', [AdminVarietySampleController::class, 'edit'])->name('variety-samples.edit');
     Route::put('/variety-samples/{id}', [AdminVarietySampleController::class, 'update'])->name('variety-samples.update');
     Route::delete('/variety-samples/{id}', [AdminVarietySampleController::class, 'destroy'])->name('variety-samples.destroy');
