@@ -104,7 +104,7 @@
                 <h2 class="content-title card-title">Variety Samples</h2>
             </div>
             <div>
-                <a href="{{route('variety-samples.create')}}" class="btn btn-primary btn-sm rounded">Create new</a>
+                <a href="{{route('variety-samples.create', $varietyReport->id)}}" class="btn btn-primary btn-sm rounded">Create new</a>
             </div>
         </div>
         <div class="row">

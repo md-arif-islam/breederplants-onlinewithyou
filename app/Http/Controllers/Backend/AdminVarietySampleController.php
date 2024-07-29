@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\VarietySample;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class AdminVarietySampleController extends Controller
 {
-    public function create()
+    public function create($variety_report_id)
     {
-        return view('backend.pages.variety-samples.create');
+        return view('backend.pages.variety-samples.create', compact('variety_report_id'));
     }
 
     public function show($id)
@@ -26,34 +25,98 @@ class AdminVarietySampleController extends Controller
         return view('backend.pages.variety-samples.edit', compact('varietySample'));
     }
 
+    public function store(Request $request, $variety_report_id)
+    {
+        $request->validate([
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
+            'sample_date' => 'required|date',
+            'leaf_color' => 'required|string|max:255',
+            'amount_of_branches' => 'required|integer',
+            'flower_buds' => 'required|integer',
+            'branch_color' => 'required|string|max:255',
+            'roots' => 'required|string|max:255',
+            'flower_color' => 'required|string|max:255',
+            'flower_petals' => 'required|integer',
+            'flowering_time' => 'required|string|max:255',
+            'length_of_flowering' => 'required|string|max:255',
+            'seeds' => 'required|integer',
+            'seed_color' => 'required|string|max:255',
+            'amount_of_seeds' => 'required|integer',
+        ]);
+
+        $images = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $filename = time() . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $path = $image->move(public_path('uploads/variety_samples'), $filename);
+                $images[] = 'uploads/variety_samples/' . $filename;
+            }
+        }
+
+        $varietySample = new VarietySample();
+        $varietySample->variety_report_id = $variety_report_id;
+        $varietySample->images = json_encode($images);
+        $varietySample->sample_date = $request->sample_date;
+        $varietySample->leaf_color = $request->leaf_color;
+        $varietySample->amount_of_branches = $request->amount_of_branches;
+        $varietySample->flower_buds = $request->flower_buds;
+        $varietySample->branch_color = $request->branch_color;
+        $varietySample->roots = $request->roots;
+        $varietySample->flower_color = $request->flower_color;
+        $varietySample->flower_petals = $request->flower_petals;
+        $varietySample->flowering_time = $request->flowering_time;
+        $varietySample->length_of_flowering = $request->length_of_flowering;
+        $varietySample->seeds = $request->seeds;
+        $varietySample->seed_color = $request->seed_color;
+        $varietySample->amount_of_seeds = $request->amount_of_seeds;
+        $varietySample->save();
+
+        return redirect()->route('variety-samples.show', ['id' => $varietySample->id])
+            ->with('success', 'Variety Sample created successfully');
+    }
+
     public function update(Request $request, $id)
     {
         $request->validate([
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'sample_date' => 'required|date',
-            'leaf_color' => 'nullable|string|max:255',
-            'amount_of_branches' => 'nullable|integer',
-            'flower_buds' => 'nullable|integer',
-            'branch_color' => 'nullable|string|max:255',
-            'roots' => 'nullable|string|max:255',
-            'flower_color' => 'nullable|string|max:255',
-            'flower_petals' => 'nullable|integer',
-            'flowering_time' => 'nullable|string|max:255',
-            'length_of_flowering' => 'nullable|string|max:255',
-            'seeds' => 'nullable|integer',
-            'seed_color' => 'nullable|string|max:255',
-            'amount_of_seeds' => 'nullable|integer',
+            'leaf_color' => 'required|string|max:255',
+            'amount_of_branches' => 'required|integer',
+            'flower_buds' => 'required|integer',
+            'branch_color' => 'required|string|max:255',
+            'roots' => 'required|string|max:255',
+            'flower_color' => 'required|string|max:255',
+            'flower_petals' => 'required|integer',
+            'flowering_time' => 'required|string|max:255',
+            'length_of_flowering' => 'required|string|max:255',
+            'seeds' => 'required|integer',
+            'seed_color' => 'required|string|max:255',
+            'amount_of_seeds' => 'required|integer',
         ]);
 
         $varietySample = VarietySample::findOrFail($id);
-        $images = json_decode($varietySample->images, true);
+        $images = json_decode($varietySample->images, true) ?: [];
 
-
+        // Handle deleted images
+        if ($request->has('delete_images')) {
+            if (count($images) == 1 && count($request->input('delete_images')) == 1) {
+                return redirect()->back()->withErrors(['images' => 'You must have at least one image.']);
+            } else {
+                foreach ($request->input('delete_images') as $deleteImage) {
+                    if (($key = array_search($deleteImage, $images)) !== false) {
+                        unset($images[$key]);
+                        if (file_exists(public_path($deleteImage))) {
+                            unlink(public_path($deleteImage));
+                        }
+                    }
+                }
+            }
+        }
 
         // Handle new image uploads
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $filename = Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '-' . time() . '.' . $image->getClientOriginalExtension();
+                $filename = time() . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
                 $path = $image->move(public_path('uploads/variety_samples'), $filename);
                 $images[] = 'uploads/variety_samples/' . $filename;
             }
@@ -63,21 +126,20 @@ class AdminVarietySampleController extends Controller
         $varietySample->images = json_encode(array_values($images));
 
         // Update other fields
-        $varietySample->update([
-            'sample_date' => $request->sample_date,
-            'leaf_color' => $request->leaf_color,
-            'amount_of_branches' => $request->amount_of_branches,
-            'flower_buds' => $request->flower_buds,
-            'branch_color' => $request->branch_color,
-            'roots' => $request->roots,
-            'flower_color' => $request->flower_color,
-            'flower_petals' => $request->flower_petals,
-            'flowering_time' => $request->flowering_time,
-            'length_of_flowering' => $request->length_of_flowering,
-            'seeds' => $request->seeds,
-            'seed_color' => $request->seed_color,
-            'amount_of_seeds' => $request->amount_of_seeds,
-        ]);
+        $varietySample->sample_date = $request->sample_date;
+        $varietySample->leaf_color = $request->leaf_color;
+        $varietySample->amount_of_branches = $request->amount_of_branches;
+        $varietySample->flower_buds = $request->flower_buds;
+        $varietySample->branch_color = $request->branch_color;
+        $varietySample->roots = $request->roots;
+        $varietySample->flower_color = $request->flower_color;
+        $varietySample->flower_petals = $request->flower_petals;
+        $varietySample->flowering_time = $request->flowering_time;
+        $varietySample->length_of_flowering = $request->length_of_flowering;
+        $varietySample->seeds = $request->seeds;
+        $varietySample->seed_color = $request->seed_color;
+        $varietySample->amount_of_seeds = $request->amount_of_seeds;
+        $varietySample->save();
 
         return redirect()->route('variety-samples.show', ['id' => $varietySample->id])
             ->with('success', 'Variety Sample updated successfully');

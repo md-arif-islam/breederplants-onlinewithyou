@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-@section('title', 'Home')
+@section('title', 'View Sample')
 @section('head')
     <style>
         .zoomContainer {
@@ -35,21 +35,17 @@
                                     <div class="detail-gallery">
                                         <!-- MAIN SLIDES -->
                                         <div class="product-image-slider">
-                                            @foreach($sample->images as $image)
+                                            @foreach(json_decode($sample->images) as $image)
                                                 <figure class="border-radius-10">
-                                                    <img src="{{ asset($image) }}"
-                                                         alt="product image">
+                                                    <img src="{{ asset($image) }}" alt="Sample Image">
                                                 </figure>
                                             @endforeach
-
-
                                         </div>
                                         <!-- THUMBNAILS -->
                                         <div class="slider-nav-thumbnails pl-15 pr-15">
-                                            @foreach($sample->images as $image)
-                                                <div><img src="{{ asset($image) }}" alt="product image"></div>
+                                            @foreach(json_decode($sample->images) as $image)
+                                                <div><img src="{{ asset($image) }}" alt="Sample Image"></div>
                                             @endforeach
-
                                         </div>
                                     </div>
                                     <!-- End Gallery -->
@@ -61,7 +57,7 @@
 
                                         <div class="d-flex justify-content-between sub-items">
                                             <span class="name">Sample Date</span>
-                                            <span>{{ $sample->date }}</span>
+                                            <span>{{ $sample->sample_date }}</span>
                                         </div>
 
                                         <div class="d-flex justify-content-between sub-items">
@@ -100,6 +96,11 @@
                                         </div>
 
                                         <div class="d-flex justify-content-between sub-items">
+                                            <span class="name">Flowering Time</span>
+                                            <span>{{ $sample->flowering_time }}</span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between sub-items">
                                             <span class="name">Length of Flowering</span>
                                             <span>{{ $sample->length_of_flowering }}</span>
                                         </div>
@@ -109,16 +110,19 @@
                                             <span>{{ $sample->seeds }}</span>
                                         </div>
 
-
                                         <div class="d-flex justify-content-between sub-items">
                                             <span class="name">Seed Color</span>
                                             <span>{{ $sample->seed_color }}</span>
                                         </div>
 
-
                                         <div class="d-flex justify-content-between sub-items">
                                             <span class="name">Amount of Seeds</span>
                                             <span>{{ $sample->amount_of_seeds }}</span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between sub-items">
+                                            <span class="name">Status</span>
+                                            <span>{{ $sample->status ? 'Active' : 'Inactive' }}</span>
                                         </div>
 
                                     </div>
@@ -132,6 +136,7 @@
                                         Edit Sample
                                     </a>
                                 </div>
+
                             </div>
 
                         </div>
@@ -163,6 +168,4 @@
     <script src="{{asset('assets/frontend/js/plugins/jquery.theia.sticky.js')}}"></script>
     <script src="{{asset('assets/frontend/js/plugins/jquery.elevatezoom.js')}}"></script>
     <script src="{{asset('assets/frontend/js/shop.js?v=3.4')}}"></script>
-
 @endsection
-

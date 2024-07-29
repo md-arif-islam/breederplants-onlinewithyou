@@ -22,15 +22,18 @@
                         </div>
                         <div class="mb-4">
                             <label for="images" class="form-label">Add New Images</label>
-                            <input type="file" name="images[]" class="form-control @error('images') is-invalid @enderror" id="images" multiple>
+                            <div id="new-images-container"></div>
+                            <button type="button" class="btn btn-primary" onclick="addImageField()">Add Image</button>
                             @error('images')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
                 </div>
+                <!-- Other fields for updating variety sample attributes -->
                 <div class="row">
                     <div class="col-md-6">
+                        <!-- First column of input fields -->
                         <div class="mb-4">
                             <label for="date" class="form-label">Sample Date</label>
                             <input type="date" name="sample_date" class="form-control @error('sample_date') is-invalid @enderror" id="date" value="{{ old('sample_date', $varietySample->sample_date) }}">
@@ -38,6 +41,10 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Second column of input fields -->
                         <div class="mb-4">
                             <label for="leaf_color" class="form-label">Leaf Color</label>
                             <input type="text" name="leaf_color" class="form-control @error('leaf_color') is-invalid @enderror" id="leaf_color" value="{{ old('leaf_color', $varietySample->leaf_color) }}" placeholder="Enter leaf color">
@@ -131,6 +138,32 @@
                 </div>
             </form>
         </div>
-    </section> <!-- content-main end// -->
+    </section>
 
+@endsection
+
+@section('scripts')
+    <script>
+        let imageFieldIndex = 0;
+
+        function addImageField() {
+            const container = document.getElementById('new-images-container');
+            const div = document.createElement('div');
+            div.className = 'input-group mb-2';
+            div.id = 'image-field-' + imageFieldIndex;
+            div.innerHTML = `
+            <input type="file" name="images[]" class="form-control" required>
+            <button type="button" class="btn btn-danger" onclick="removeImageField(${imageFieldIndex})">Remove</button>
+        `;
+            container.appendChild(div);
+            imageFieldIndex++;
+        }
+
+        function removeImageField(index) {
+            const element = document.getElementById('image-field-' + index);
+            if (element) {
+                element.remove();
+            }
+        }
+    </script>
 @endsection
