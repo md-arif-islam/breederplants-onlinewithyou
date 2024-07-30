@@ -25,13 +25,13 @@ class AdminBreederController extends Controller
             'status' => 'required|string',
             'company_name' => 'required|string|max:255',
             'company_email' => 'required|string|email|max:255|unique:breeders',
-            'contact_person' => 'required|string|max:255',
-            'street' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
-            'website' => 'required|string|max:255',
+            'contact_person' => 'nullable|string|max:255',
+            'street' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'postal_code' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:255',
+            'website' => 'nullable|string|max:255',
         ]);
 
         $user = User::create([
@@ -63,6 +63,12 @@ class AdminBreederController extends Controller
         return view('backend.pages.breeders.create');
     }
 
+    public function show($id)
+    {
+        $breeder = Breeder::findOrFail($id);
+        return view('backend.pages.breeders.show', compact('breeder'));
+    }
+
     public function edit($id)
     {
         $breeder = Breeder::findOrFail($id);
@@ -91,13 +97,13 @@ class AdminBreederController extends Controller
             'status' => 'required|string',
             'company_name' => 'required|string|max:255',
             'company_email' => 'required|string|email|max:255|unique:breeders,company_email,' . $id,
-            'contact_person' => 'required|string|max:255',
-            'street' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
-            'website' => 'required|string|max:255',
+            'contact_person' => 'nullable|string|max:255',
+            'street' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'postal_code' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:255',
+            'website' => 'nullable|string|max:255',
         ]);
 
         $breeder = Breeder::findOrFail($id);

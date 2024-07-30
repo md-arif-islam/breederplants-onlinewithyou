@@ -39,10 +39,9 @@ class AdminVarietySampleController extends Controller
             'flower_petals' => 'required|integer',
             'flowering_time' => 'required|string|max:255',
             'length_of_flowering' => 'required|string|max:255',
-            'seeds' => 'required|integer',
+            'seeds' => 'required|string|max:255',
             'seed_color' => 'required|string|max:255',
-            'amount_of_seeds' => 'required|integer',
-        ]);
+            'amount_of_seeds' => 'required|integer',]);
 
         $images = [];
         if ($request->hasFile('images')) {
@@ -71,8 +70,7 @@ class AdminVarietySampleController extends Controller
         $varietySample->amount_of_seeds = $request->amount_of_seeds;
         $varietySample->save();
 
-        return redirect()->route('variety-samples.show', ['id' => $varietySample->id])
-            ->with('success', 'Variety Sample created successfully');
+        return redirect()->route('variety-samples.show', ['id' => $varietySample->id])->with('success', 'Variety Sample created successfully');
     }
 
     public function update(Request $request, $id)
@@ -89,10 +87,9 @@ class AdminVarietySampleController extends Controller
             'flower_petals' => 'required|integer',
             'flowering_time' => 'required|string|max:255',
             'length_of_flowering' => 'required|string|max:255',
-            'seeds' => 'required|integer',
+            'seeds' => 'required|string|max:255',
             'seed_color' => 'required|string|max:255',
-            'amount_of_seeds' => 'required|integer',
-        ]);
+            'amount_of_seeds' => 'required|integer',]);
 
         $varietySample = VarietySample::findOrFail($id);
         $images = json_decode($varietySample->images, true) ?: [];
@@ -141,8 +138,7 @@ class AdminVarietySampleController extends Controller
         $varietySample->amount_of_seeds = $request->amount_of_seeds;
         $varietySample->save();
 
-        return redirect()->route('variety-samples.show', ['id' => $varietySample->id])
-            ->with('success', 'Variety Sample updated successfully');
+        return redirect()->route('variety-samples.show', ['id' => $varietySample->id])->with('success', 'Variety Sample updated successfully');
     }
 
     public function destroy($id)
@@ -151,7 +147,6 @@ class AdminVarietySampleController extends Controller
         $varietyReportId = $varietySample->variety_report_id;
         $varietySample->delete();
 
-        return redirect()->route('variety-reports.show', ['id' => $varietyReportId])
-            ->with('success', 'Variety Sample deleted successfully');
+        return redirect()->route('variety-reports.show', ['id' => $varietyReportId])->with('success', 'Variety Sample deleted successfully');
     }
 }
