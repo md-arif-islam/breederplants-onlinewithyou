@@ -10,6 +10,7 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
+
         return view('frontend.pages.login');
     }
 
@@ -27,7 +28,7 @@ class LoginController extends Controller
             if ($role == 'admin') {
                 return redirect()->route('dashboard');
             } else {
-                return redirect()->route('home');
+                return redirect('/');
             }
         }
 
@@ -44,6 +45,6 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('login');
     }
 }

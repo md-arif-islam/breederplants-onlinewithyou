@@ -12,20 +12,20 @@
                                     <article class="first-post mb-30 wow fadeIn animated hover-up">
                                         <div class="img-hover-slide position-relative overflow-hidden">
                                             <div class="top-right-icon">
-                                                <a href="/">
+                                                <a href="javascript:history.back()">
                                                     <div class="notification shadow">
                                                         <img src="{{ asset('assets/frontend/imgs/Chevron_Left.svg') }}" alt="">
                                                     </div>
                                                 </a>
                                             </div>
-                                            <div class="post-thumb img-hover-scale text-center">
+                                            <div class="variety-report-show-img-div text-center">
                                                 @php
                                                     $samples = $varietyReport->samples;
                                                     $lastSample = $samples->last();
                                                     $images = $lastSample ? json_decode($lastSample->images) : [];
                                                     $lastImage = $images[count($images) - 1];
                                                 @endphp
-                                                <img src="{{ asset($lastImage) }}" alt="{{ $varietyReport->variety_name }}">
+                                                <img class="variety-report-show-img" src="{{ asset($lastImage) }}" alt="{{ $varietyReport->variety_name }}">
                                             </div>
                                         </div>
                                         <div class="entry-content">
@@ -87,39 +87,32 @@
                         </div>
 
                         <div class="row loop-grid loop-list">
+
                             @foreach($varietyReport->samples as $sample)
-                                <div class="col-md-6 col-sm-12">
-                                    <a href="{{ route('frontend.variety-samples.show', $sample->id) }}">
-                                        <article class="wow fadeIn animated hover-up mb-30">
-                                            <div class="post-thumb">
-                                                @php
-                                                    $images = json_decode($sample->images);
-                                                    $lastImage = $images[count($images) - 1];
-                                                @endphp
-                                                <img src="{{ asset($lastImage) }}" alt="{{ $sample->sample_date }}">
-                                            </div>
+                                <a href="{{ route('frontend.variety-samples.show', $sample->id) }}" class="col-md-6 col-sm-12">
+                                    <div class="row variety-report-item">
+                                        @php
+                                            $images = json_decode($sample->images);
+                                            $lastImage = $images[count($images) - 1];
+                                        @endphp
+                                        <div class="col-5 bg-image" style="background-image: url({{ asset($lastImage) }}); background-size: cover; height: auto; min-height: 300px; background-position: center" >
+                                        </div>
+                                        <div class="col-7 d-flex align-items-center">
                                             <div class="entry-content-2">
                                                 <p class="post-excerpt">Sample Date: {{ $sample->sample_date }}</p>
                                                 <p class="post-excerpt">Leaf Color: {{ $sample->leaf_color }}</p>
-                                                <p class="post-excerpt">Amount of Branches: {{ $sample->amount_of_branches }}</p>
-                                                <p class="post-excerpt">Flower Buds: {{ $sample->flower_buds }}</p>
                                                 <p class="post-excerpt">Branch Color: {{ $sample->branch_color }}</p>
-                                                <p class="post-excerpt">Roots: {{ $sample->roots }}</p>
                                                 <p class="post-excerpt">Flower Color: {{ $sample->flower_color }}</p>
                                                 <p class="post-excerpt">Flower Petals: {{ $sample->flower_petals }}</p>
-                                                <p class="post-excerpt">Flowering Time: {{ $sample->flowering_time }}</p>
-                                                <p class="post-excerpt">Length of Flowering: {{ $sample->length_of_flowering }}</p>
-                                                <p class="post-excerpt">Seeds: {{ $sample->seeds }}</p>
-                                                <p class="post-excerpt">Seed Color: {{ $sample->seed_color }}</p>
-                                                <p class="post-excerpt">Amount of Seeds: {{ $sample->amount_of_seeds }}</p>
+
                                             </div>
-                                        </article>
-                                    </a>
-                                </div>
+                                        </div>
+                                    </div>
+                                </a>
                             @endforeach
 
                             <div class="col-lg-12 col-md-12">
-                                <div class="input-style mb-20">
+                                <div class="input-style mt-20 mb-20">
                                     <a href="{{ route('frontend.variety-samples.create', $varietyReport->id) }}" class="btn btn-fill-out btn-block hover-up w-100" name="submit">Add New Sample</a>
                                 </div>
                             </div>
