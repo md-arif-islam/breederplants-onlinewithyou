@@ -17,13 +17,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('company_name');
             $table->string('company_email')->unique();
-            $table->string('contact_person');
-            $table->string('street');
-            $table->string('city');
-            $table->string('postal_code');
-            $table->string('country');
-            $table->string('phone');
-            $table->string('website');
+            $table->string('contact_person')->nullable();
+            $table->string('street')->nullable();
+            $table->string('city')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('country')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('website')->nullable();
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class BreedersTableSeeder extends Seeder
         for ($i = 1; $i <= 5; $i++) {
             DB::table('breeders')->insert([
                 [
-                    'user_id' => $i + 6, // Adjusting user_id to match breeders' user IDs
+                    'user_id' => $i + 6,
                     'name' => fake()->unique()->name,
                     'company_name' => fake()->company,
                     'company_email' => fake()->unique()->companyEmail,

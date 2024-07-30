@@ -25,7 +25,7 @@ return new class extends Migration
             $table->bigInteger('flower_petals')->nullable();
             $table->string('flowering_time')->nullable();
             $table->string('length_of_flowering')->nullable(); // Ensure this is a string
-            $table->bigInteger('seeds')->nullable();
+            $table->string('seeds')->nullable();
             $table->string('seed_color')->nullable();
             $table->bigInteger('amount_of_seeds')->nullable();
             $table->boolean('status')->default(true);
