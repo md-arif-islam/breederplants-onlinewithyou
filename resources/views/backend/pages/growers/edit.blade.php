@@ -25,24 +25,11 @@
                     </ul>
                 </div>
             @endif
-            <h4>Update Information</h4>
+
             <form action="{{ route('growers.update', $grower->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="mb-4">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" name="name" class="form-control" id="name" value="{{ $grower->name }}" placeholder="Enter name" required>
-                    @error('name')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" value="{{ $grower->user->email }}" placeholder="Enter email" required>
-                    @error('email')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
+
                 <div class="mb-4">
                     <label for="company_name" class="form-label">Company Name</label>
                     <input type="text" name="company_name" class="form-control" id="company_name" value="{{ $grower->company_name }}" placeholder="Enter company name" required>
@@ -59,7 +46,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="contact_person" class="form-label">Contact Person</label>
-                    <input type="text" name="contact_person" class="form-control" id="contact_person" value="{{ $grower->contact_person }}" placeholder="Enter contact person" required>
+                    <input type="text" name="contact_person" class="form-control" id="contact_person" value="{{ $grower->contact_person }}" placeholder="Enter contact person">
                     @error('contact_person')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -101,11 +88,29 @@
                 </div>
                 <div class="mb-4">
                     <label for="website" class="form-label">Website</label>
-                    <input type="url" name="website" class="form-control" id="website" value="{{ $grower->website }}" placeholder="Enter website URL">
+                    <input type="text" name="website" class="form-control" id="website" value="{{ $grower->website }}" placeholder="Enter website URL">
                     @error('website')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+
+                <hr>
+
+                <div class="mb-4">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control" id="name" value="{{ $grower->name }}" placeholder="Enter name" required>
+                    @error('name')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" value="{{ $grower->user->email }}" placeholder="Enter email" required>
+                    @error('email')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
                 <div class="mb-4">
                     <label for="status" class="form-label">Status</label>
                     <select name="status" class="form-select" id="status" required>

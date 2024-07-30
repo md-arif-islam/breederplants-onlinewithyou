@@ -42,7 +42,7 @@
                                 @if($user->grower)
                                     <option
                                         value="{{ $user->id }}" {{ request('grower_id') == $user->id ? 'selected' : '' }}>
-                                        {{ $user->grower->name }}
+                                        {{ $user->grower->company_name }}
                                     </option>
                                 @endif
                             @endforeach
@@ -124,8 +124,6 @@
                                         <i class="icon material-icons md-restore_from_trash"></i>
                                     </button>
                                 </form>
-                                <a href="#" class="dashboard-icon"><i class="icon material-icons md-share"></i>
-                                </a>
                             </div>
                         </div>
                     </div>

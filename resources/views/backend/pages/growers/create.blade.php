@@ -18,38 +18,7 @@
             @endif
             <form action="{{ route('growers.store') }}" method="POST">
                 @csrf
-                <div class="mb-4">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter name" value="{{ old('name') }}" required>
-                    @error('name')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" value="{{ old('email') }}" required>
-                    @error('email')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="input-group">
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" required>
-                        <button type="button" class="btn btn-outline-secondary" onclick="generatePassword()">Generate</button>
-                        <button type="button" class="btn btn-outline-secondary" id="show-hide-password" onclick="togglePasswordVisibility()">Show</button>
-                    </div>
-                    @error('password')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="password_confirmation" class="form-label">Confirm Password</label>
-                    <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Confirm password" required>
-                    @error('password_confirmation')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
+
                 <div class="mb-4">
                     <label for="company_name" class="form-label">Company Name</label>
                     <input type="text" name="company_name" class="form-control" id="company_name" placeholder="Enter company name" value="{{ old('company_name') }}" required>
@@ -66,7 +35,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="contact_person" class="form-label">Contact Person</label>
-                    <input type="text" name="contact_person" class="form-control" id="contact_person" placeholder="Enter contact person" value="{{ old('contact_person') }}" required>
+                    <input type="text" name="contact_person" class="form-control" id="contact_person" placeholder="Enter contact person" value="{{ old('contact_person') }}">
                     @error('contact_person')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -108,11 +77,47 @@
                 </div>
                 <div class="mb-4">
                     <label for="website" class="form-label">Website</label>
-                    <input type="url" name="website" class="form-control" id="website" placeholder="Enter website URL" value="{{ old('website') }}">
+                    <input type="text" name="website" class="form-control" id="website" placeholder="Enter website URL" value="{{ old('website') }}">
                     @error('website')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+
+                <hr>
+                <h4>Users details</h4>
+                <div class="mb-4">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Enter name" value="{{ old('name') }}" required>
+                    @error('name')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" value="{{ old('email') }}" required>
+                    @error('email')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" required>
+                        <button type="button" class="btn btn-outline-secondary" onclick="generatePassword()">Generate</button>
+                        <button type="button" class="btn btn-outline-secondary" id="show-hide-password" onclick="togglePasswordVisibility()">Show</button>
+                    </div>
+                    @error('password')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="password_confirmation" class="form-label">Confirm Password</label>
+                    <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Confirm password" required>
+                    @error('password_confirmation')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
                 <div class="mb-4">
                     <label for="status" class="form-label">Status</label>
                     <select name="status" class="form-select" id="status" required>

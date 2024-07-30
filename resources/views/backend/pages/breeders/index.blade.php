@@ -61,6 +61,8 @@
                             @endif
                         </td>
                         <td>
+                            <a href="{{ route('breeders.show', $breeder->id) }}"
+                               class="btn btn-sm font-sm rounded btn-light m-1">View</a>
                             <a href="{{ route('breeders.edit', $breeder->id) }}"
                                class="btn btn-sm font-sm rounded btn-brand m-1">Edit</a>
                             <form action="{{ route('breeders.destroy', $breeder->id) }}" method="POST"

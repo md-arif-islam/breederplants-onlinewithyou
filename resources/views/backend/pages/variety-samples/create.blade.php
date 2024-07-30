@@ -100,7 +100,7 @@
                         </div>
                         <div class="mb-4">
                             <label for="seeds" class="form-label">Seeds</label>
-                            <input type="number" name="seeds" class="form-control @error('seeds') is-invalid @enderror" id="seeds" value="{{ old('seeds') }}" placeholder="Enter seeds count">
+                            <input type="text" name="seeds" class="form-control @error('seeds') is-invalid @enderror" id="seeds" value="{{ old('seeds') }}" placeholder="Enter seeds count">
                             @error('seeds')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

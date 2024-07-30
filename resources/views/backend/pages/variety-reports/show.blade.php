@@ -99,8 +99,7 @@
                         <i class="icon material-icons md-restore_from_trash"></i>
                     </button>
                 </form>
-                <a href="#" class="dashboard-icon"><i class="icon material-icons md-share"></i>
-                </a>
+
             </div>
         </div>
 
@@ -202,8 +201,7 @@
                                     <i class="icon material-icons md-restore_from_trash"></i>
                                 </button>
                             </form>
-                            <a href="#" class="dashboard-icon"><i class="icon material-icons md-share"></i>
-                            </a>
+
                         </div>
                     </div>
                 </div>

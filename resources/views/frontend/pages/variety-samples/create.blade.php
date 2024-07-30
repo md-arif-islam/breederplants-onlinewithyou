@@ -6,9 +6,12 @@
         <div class="container">
             <div class="d-flex">
                 <div class="credit">
-                    <div class="notification">
-                        <img src="{{ asset('assets/imgs/Chevron_Left.svg') }}" alt="">
-                    </div>
+                    <a href="javascript:history.back()">
+                        <div class="notification">
+                            <img src="{{ asset('assets/frontend/imgs/Chevron_Left.svg') }}"
+                                 alt="">
+                        </div>
+                    </a>
                 </div>
                 <div class="notification text-center w-100">
                     <h2 style="color: #fff;">Add Sample</h2>
@@ -119,7 +122,7 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="input-style mb-20">
                                         <label for="seeds">Seeds</label>
-                                        <input name="seeds" placeholder="Enter seeds count" type="number" value="{{ old('seeds') }}">
+                                        <input name="seeds" placeholder="Enter seeds count" type="text" value="{{ old('seeds') }}">
                                         @error('seeds')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                         @enderror

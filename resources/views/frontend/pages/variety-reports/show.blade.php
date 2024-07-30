@@ -35,9 +35,9 @@
                                         <div class="entry-content">
                                             <div class="d-flex justify-content-between mb-20">
                                                 <h2>{{ $varietyReport->variety_name }}</h2>
-                                                <a href="{{ route('frontend.variety-reports.edit', $varietyReport->id) }}"
-                                                   class="btn btn-fill-out hover-up"
-                                                   style="padding: 10px 18px; font-size: 10px; border: none;">Edit</a>
+{{--                                                <a href="{{ route('frontend.variety-reports.edit', $varietyReport->id) }}"--}}
+{{--                                                   class="btn btn-fill-out hover-up"--}}
+{{--                                                   style="padding: 10px 18px; font-size: 10px; border: none;">Edit</a>--}}
                                             </div>
 
 

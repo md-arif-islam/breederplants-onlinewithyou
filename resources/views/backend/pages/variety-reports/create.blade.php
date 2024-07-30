@@ -29,7 +29,7 @@
                                     id="grower_id">
                                 @foreach($growers as $user)
                                     @if($user->grower)
-                                        <option value="{{ $user->id }}">{{ $user->grower->name }}</option>
+                                        <option value="{{ $user->id }}">{{ $user->grower->company_name }}</option>
                                     @endif
                                 @endforeach
                             </select>

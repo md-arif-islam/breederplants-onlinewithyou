@@ -35,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/', [VarietyReportController::class, 'index'])->name('frontend.variety-reports.index');
     Route::get('/variety-reports/{id}', [VarietyReportController::class, 'show'])->name('frontend.variety-reports.show');
-    Route::get('/variety-reports/{id}/edit', [VarietyReportController::class, 'edit'])->name('frontend.variety-reports.edit');
+//    Route::get('/variety-reports/{id}/edit', [VarietyReportController::class, 'edit'])->name('frontend.variety-reports.edit');
     Route::put('/variety-reports/{id}', [VarietyReportController::class, 'update'])->name('frontend.variety-reports.update');
 
     Route::get('/variety-reports/{variety_report_id}/variety-samples/create', [VarietySampleController::class, 'create'])->name('frontend.variety-samples.create');
@@ -71,6 +71,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/growers', [AdminGrowerController::class, 'index'])->name('growers.index');
     Route::get('/growers/create', [AdminGrowerController::class, 'create'])->name('growers.create');
     Route::post('/growers', [AdminGrowerController::class, 'store'])->name('growers.store');
+    Route::get('/growers/{grower}', [AdminGrowerController::class, 'show'])->name('growers.show');
     Route::get('/growers/{grower}/edit', [AdminGrowerController::class, 'edit'])->name('growers.edit');
     Route::put('/growers/{grower}', [AdminGrowerController::class, 'update'])->name('growers.update');
     Route::delete('/growers/{grower}', [AdminGrowerController::class, 'destroy'])->name('growers.destroy');
@@ -81,6 +82,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/breeders', [AdminBreederController::class, 'index'])->name('breeders.index');
     Route::get('/breeders/create', [AdminBreederController::class, 'create'])->name('breeders.create');
     Route::post('/breeders', [AdminBreederController::class, 'store'])->name('breeders.store');
+    Route::get('/breeders/{breeder}', [AdminBreederController::class, 'show'])->name('breeders.show');
     Route::get('/breeders/{breeder}/edit', [AdminBreederController::class, 'edit'])->name('breeders.edit');
     Route::put('/breeders/{breeder}', [AdminBreederController::class, 'update'])->name('breeders.update');
     Route::delete('/breeders/{breeder}', [AdminBreederController::class, 'destroy'])->name('breeders.destroy');
