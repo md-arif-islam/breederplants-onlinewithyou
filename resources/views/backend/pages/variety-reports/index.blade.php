@@ -15,12 +15,12 @@
 
             <form method="GET" action="{{ route('variety-reports.index') }}">
                 <div class="row gx-3">
-                    <div class="col-lg-4 col-md-6 me-auto">
+                    <div class="col-lg-4 col-md-6 me-auto search-input">
                         <input type="text" name="search" value="{{ request('search') }}" placeholder="Search..."
                                class="form-control">
                     </div>
-                    <div class="col-lg-2 col-6 col-md-3">
-                        <select name="sort" class="form-select" onchange="this.form.submit()">
+                    <div class="col-lg-2 col-12 col-md-4">
+                        <select name="sort" class="form-select search-input" onchange="this.form.submit()">
                             <option value="">Select sort</option>
                             <option value="a-z" {{ request('sort') == 'a-z' ? 'selected' : '' }}>Grower name (A-Z)
                             </option>
@@ -34,13 +34,14 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-lg-2 col-6 col-md-3">
+                    <div class="col-lg-2 col-12 col-md-4">
 
-                        <select name="grower_id" class="form-select" onchange="this.form.submit()">
+                        <select name="grower_id" class="form-select search-input" onchange="this.form.submit()">
                             <option value="">Select grower</option>
                             @foreach($growers as $user)
                                 @if($user->grower)
-                                    <option value="{{ $user->id }}" {{ request('grower_id') == $user->id ? 'selected' : '' }}>
+                                    <option
+                                        value="{{ $user->id }}" {{ request('grower_id') == $user->id ? 'selected' : '' }}>
                                         {{ $user->grower->name }}
                                     </option>
                                 @endif
@@ -51,20 +52,27 @@
             </form>
         </header> <!-- card-header end// -->
         <div class="row">
+            @if($varietyReports->isEmpty())
+                <div class="col-12">
+                    <div class="alert alert-warning">No variety reports found.</div>
+                </div>
+            @endif
             @foreach($varietyReports as $report)
                 <div class="col-xl-4 col-lg-6 col-md-12">
-                    <div class="card card-product-grid">
-                        @php
-                            $samples = $report->samples;
-                            $lastSample = $samples->last();
-                            $images = $lastSample ? json_decode($lastSample->images) : [];
-                            $lastImage = $images[count($images) - 1] ;
-                        @endphp
+                    <div class="card card-product-grid admin-variety-report-index">
+                        @if($report->samples->isNotEmpty())
+                            @php
+                                $samples = $report->samples;
+                                $lastSample = $samples->last();
+                                $images = $lastSample ? json_decode($lastSample->images) : [];
+                                $lastImage = $images[count($images) - 1] ;
+                            @endphp
 
-                        <a href="{{ route('variety-reports.show', $report->id) }}" class="img-wrap">
-                            <img src="{{ asset($lastImage) }}" alt="Product">
-                        </a>
+                            <a href="{{ route('variety-reports.show', $report->id) }}">
+                                <img src="{{ asset($lastImage) }}" alt="Product" class="admin-variety-report-img">
+                            </a>
 
+                        @endif
                         <div class="info-wrap">
                             <a href="{{route('variety-reports.show', $report->id)}}"
                                class="title">{{ $report->variety_name }}</a>
@@ -104,20 +112,20 @@
 
                             <div class="d-flex justify-content-center mt-3">
                                 <a href="{{route('variety-reports.show',$report->id)}}"
-                                   class="btn btn-sm btn-outline-primary me-2"><i class="fas fa-eye"></i> View</a>
+                                   class="dashboard-icon"><i class="icon material-icons md-remove_red_eye"></i></a>
                                 <a href="{{route('variety-reports.edit', $report->id)}}"
-                                   class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
+                                   class="dashboard-icon"><i class="icon material-icons md-edit"></i></a>
                                 <form action="{{route('variety-reports.destroy', $report->id)}}" method="POST"
                                       style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger me-2"
+                                    <button type="submit" class="dashboard-icon me-2"
                                             onclick="return confirm('Are you sure you want to delete this variety report?')">
-                                        <i class="fas fa-trash"></i> Delete
+                                        <i class="icon material-icons md-restore_from_trash"></i>
                                     </button>
                                 </form>
-                                <a href="#" class="btn btn-sm btn-outline-info"><i class="fas fa-share-alt"></i>
-                                    Share</a>
+                                <a href="#" class="dashboard-icon"><i class="icon material-icons md-share"></i>
+                                </a>
                             </div>
                         </div>
                     </div>

@@ -40,7 +40,7 @@ class VarietyReportController extends Controller
             $query->where('grower_id', $growerId);
         }
 
-        $varietyReports = $query->paginate(12);
+        $varietyReports = $query->where('status', '1')->paginate(10);
         $growers = User::where('role', 'grower')->with('grower')->get();
 
         return view('frontend.pages.variety-reports.index', compact('varietyReports', 'growers'));

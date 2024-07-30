@@ -26,7 +26,7 @@ class UsersTableSeeder extends Seeder
         for ($i = 1; $i <= 5; $i++) {
             DB::table('users')->insert([
                 [
-                    'email' => 'grower'.$i.'@example.com',
+                    'email' => fake()->unique()->safeEmail,
                     'password' => Hash::make('password'),
                     'role' => 'grower',
                     'status' => 'active',
@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
         for ($i = 1; $i <= 5; $i++) {
             DB::table('users')->insert([
                 [
-                    'email' => 'breeder'.$i.'@example.com',
+                    'email' => fake()->unique()->safeEmail,
                     'password' => Hash::make('password'),
                     'role' => 'breeder',
                     'status' => 'active',

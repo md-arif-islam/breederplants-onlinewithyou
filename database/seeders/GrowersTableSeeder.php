@@ -14,16 +14,16 @@ class GrowersTableSeeder extends Seeder
             DB::table('growers')->insert([
                 [
                     'user_id' => $i + 1, // Adjusting user_id to match growers' user IDs
-                    'name' => 'Grower Name ' . $i,
-                    'company_name' => 'Grower Company ' . $i,
-                    'company_email' => 'grower'.$i.'@example.com',
-                    'contact_person' => 'Grower Contact ' . $i,
-                    'street' => '123 Grower Lane ' . $i,
-                    'city' => 'Growerville',
-                    'postal_code' => '12345',
-                    'country' => 'Country ' . $i,
-                    'phone' => '123-456-789' . $i,
-                    'website' => 'http://grower' . $i . '.com',
+                    'name' => fake()->unique()->name,
+                    'company_name' => fake()->company,
+                    'company_email' => fake()->unique()->companyEmail,
+                    'contact_person' => fake()->name,
+                    'street' => fake()->streetAddress,
+                    'city' => fake()->city,
+                    'postal_code' => fake()->postcode,
+                    'country' => fake()->country,
+                    'phone' => fake()->phoneNumber,
+                    'website' => 'https://breederplants.nl/',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]

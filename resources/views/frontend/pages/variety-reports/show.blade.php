@@ -14,24 +14,30 @@
                                             <div class="top-right-icon">
                                                 <a href="javascript:history.back()">
                                                     <div class="notification shadow">
-                                                        <img src="{{ asset('assets/frontend/imgs/Chevron_Left.svg') }}" alt="">
+                                                        <img src="{{ asset('assets/frontend/imgs/Chevron_Left.svg') }}"
+                                                             alt="">
                                                     </div>
                                                 </a>
                                             </div>
                                             <div class="variety-report-show-img-div text-center">
-                                                @php
-                                                    $samples = $varietyReport->samples;
-                                                    $lastSample = $samples->last();
-                                                    $images = $lastSample ? json_decode($lastSample->images) : [];
-                                                    $lastImage = $images[count($images) - 1];
-                                                @endphp
-                                                <img class="variety-report-show-img" src="{{ asset($lastImage) }}" alt="{{ $varietyReport->variety_name }}">
+                                                @if($varietyReport->samples->isNotEmpty())
+                                                    @php
+                                                        $samples = $varietyReport->samples;
+                                                        $lastSample = $samples->last();
+                                                        $images = $lastSample ? json_decode($lastSample->images) : [];
+                                                        $lastImage = $images[count($images) - 1];
+                                                    @endphp
+                                                    <img class="variety-report-show-img" src="{{ asset($lastImage) }}"
+                                                         alt="{{ $varietyReport->variety_name }}">
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="entry-content">
                                             <div class="d-flex justify-content-between mb-20">
                                                 <h2>{{ $varietyReport->variety_name }}</h2>
-                                                <a href="{{ route('frontend.variety-reports.edit', $varietyReport->id) }}" class="btn btn-fill-out hover-up" style="padding: 10px 18px; font-size: 10px; border: none;">Edit</a>
+                                                <a href="{{ route('frontend.variety-reports.edit', $varietyReport->id) }}"
+                                                   class="btn btn-fill-out hover-up"
+                                                   style="padding: 10px 18px; font-size: 10px; border: none;">Edit</a>
                                             </div>
 
 
@@ -87,15 +93,22 @@
                         </div>
 
                         <div class="row loop-grid loop-list">
+                            @if($varietyReport->samples->isEmpty())
+                                <div class="col-12">
+                                    <div class="alert alert-warning">No variety Samples found.</div>
+                                </div>
+                            @endif
 
                             @foreach($varietyReport->samples as $sample)
-                                <a href="{{ route('frontend.variety-samples.show', $sample->id) }}" class="col-md-6 col-sm-12">
+                                <a href="{{ route('frontend.variety-samples.show', $sample->id) }}"
+                                   class="col-md-6 col-sm-12">
                                     <div class="row variety-report-item">
                                         @php
                                             $images = json_decode($sample->images);
                                             $lastImage = $images[count($images) - 1];
                                         @endphp
-                                        <div class="col-5 bg-image" style="background-image: url({{ asset($lastImage) }}); background-size: cover; height: auto; min-height: 300px; background-position: center" >
+                                        <div class="col-5 bg-image"
+                                             style="background-image: url({{ asset($lastImage) }}); background-size: cover; height: auto; min-height: 300px; background-position: center">
                                         </div>
                                         <div class="col-7 d-flex align-items-center">
                                             <div class="entry-content-2">
@@ -113,7 +126,9 @@
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="input-style mt-20 mb-20">
-                                    <a href="{{ route('frontend.variety-samples.create', $varietyReport->id) }}" class="btn btn-fill-out btn-block hover-up w-100" name="submit">Add New Sample</a>
+                                    <a href="{{ route('frontend.variety-samples.create', $varietyReport->id) }}"
+                                       class="btn btn-fill-out btn-block hover-up w-100" name="submit">Add New
+                                        Sample</a>
                                 </div>
                             </div>
                         </div>

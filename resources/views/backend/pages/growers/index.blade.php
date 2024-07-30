@@ -62,7 +62,7 @@
                         </td>
                         <td>
                             <a href="{{ route('growers.edit', $grower->id) }}"
-                               class="btn btn-sm font-sm rounded btn-brand">Edit</a>
+                               class="btn btn-sm font-sm rounded btn-brand m-1">Edit</a>
                             <form action="{{ route('growers.destroy', $grower->id) }}" method="POST"
                                   style="display:inline-block;" onsubmit="return confirmDelete()">
                                 @csrf

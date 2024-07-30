@@ -54,15 +54,21 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="single-header mb-20">
-                            <h1 class="font-xxl">Varieties</h1>
+                            <h1 class="font-xxl">Variety Reports</h1>
                         </div>
                     </div>
 
                     <div class="row loop-grid loop-list">
+                        @if($varietyReports->isEmpty())
+                            <div class="col-12">
+                                <div class="alert alert-warning">No variety reports found.</div>
+                            </div>
+                        @endif
                         @foreach($varietyReports as $report)
                             <a href="{{ route('frontend.variety-reports.show', $report->id) }}"
                                class="col-md-6 col-sm-12">
                                 <div class="row variety-report-item">
+                                    @if($report->samples->isNotEmpty())
                                     @php
                                         $samples = $report->samples;
                                         $lastSample = $samples->last();
@@ -72,6 +78,7 @@
                                     <div class="col-5 bg-image"
                                          style="background-image: url({{ asset($lastImage) }}); background-size: cover; height: auto; min-height: 300px; background-position: center">
                                     </div>
+                                    @endif
                                     <div class="col-7 d-flex align-items-center">
                                         <div class="entry-content-2">
                                             <h3 class="post-title mb-15">

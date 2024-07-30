@@ -9,15 +9,17 @@
         <div class="card card-body">
             <div class="row mb-4">
                 <div class="col-12 text-center">
-                    @php
-                        $samples = $varietyReport->samples;
-                        $lastSample = $samples->last();
-                        $images = $lastSample ? json_decode($lastSample->images) : [];
-                        $lastImage = $images[count($images) - 1] ;
-                    @endphp
+                    @if($varietyReport->samples->isNotEmpty())
+                        @php
+                            $samples = $varietyReport->samples;
+                            $lastSample = $samples->last();
+                            $images = $lastSample ? json_decode($lastSample->images) : [];
+                            $lastImage = $images[count($images) - 1] ;
+                        @endphp
 
-                    <img src="{{ asset($lastImage) }}" alt="Thumbnail"
-                         style="max-width: 100%; height: auto;">
+                        <img src="{{ asset($lastImage) }}" alt="Thumbnail"
+                             style="max-width: 100%; height: auto; max-height: 500px; border-radius: 10px">
+                    @endif
                 </div>
             </div>
             <div class="row">
@@ -83,19 +85,22 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center mb-4">
+
+            <div class="d-flex justify-content-center mt-3">
+
                 <a href="{{route('variety-reports.edit', $varietyReport->id)}}"
-                   class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
+                   class="dashboard-icon"><i class="icon material-icons md-edit"></i></a>
                 <form action="{{route('variety-reports.destroy', $varietyReport->id)}}" method="POST"
                       style="display:inline-block;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-outline-danger me-2"
-                            onclick="return confirm('Are you sure you want to delete this variety report?')"><i
-                            class="fas fa-trash"></i> Delete
+                    <button type="submit" class="dashboard-icon me-2"
+                            onclick="return confirm('Are you sure you want to delete this variety report?')">
+                        <i class="icon material-icons md-restore_from_trash"></i>
                     </button>
                 </form>
-                <a href="#" class="btn btn-sm btn-outline-info"><i class="fas fa-share-alt"></i> Share</a>
+                <a href="#" class="dashboard-icon"><i class="icon material-icons md-share"></i>
+                </a>
             </div>
         </div>
 
@@ -104,21 +109,27 @@
                 <h2 class="content-title card-title">Variety Samples</h2>
             </div>
             <div>
-                <a href="{{route('variety-samples.create', $varietyReport->id)}}" class="btn btn-primary btn-sm rounded">Create new</a>
+                <a href="{{route('variety-samples.create', $varietyReport->id)}}"
+                   class="btn btn-primary btn-sm rounded">Create new</a>
             </div>
         </div>
         <div class="row">
+            @if($varietyReport->samples->isEmpty())
+                <div class="col-12">
+                    <div class="alert alert-warning">No variety Samples found.</div>
+                </div>
+            @endif
             @foreach($varietyReport->samples as $sample)
                 <div class="col-xl-4 col-lg-6 col-md-12">
-                    <div class="card card-product-grid">
+                    <div class="card card-product-grid admin-variety-report-index">
 
-                        <a href="{{route('variety-samples.show', $sample->id)}}" class="img-wrap">
+                        <a href="{{route('variety-samples.show', $sample->id)}}">
                             @php
                                 $images = json_decode($sample->images);
                                 $lastImage = $images[count($images) - 1];
 
                             @endphp
-                            <img src="{{ asset($lastImage) }}" alt="Sample Image">
+                            <img src="{{ asset($lastImage) }}" alt="Sample Image" class="admin-variety-report-img">
                         </a>
                         <div class="info-wrap">
 
@@ -176,21 +187,23 @@
                                 <span>{{ $sample->amount_of_seeds }}</span>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-center mb-4">
+
+                        <div class="d-flex justify-content-center mt-3">
                             <a href="{{route('variety-samples.show', $sample->id)}}"
-                               class="btn btn-sm btn-outline-info me-2"><i class="fas fa-eye"></i> View</a>
+                               class="dashboard-icon"><i class="icon material-icons md-remove_red_eye"></i></a>
                             <a href="{{route('variety-samples.edit', $sample->id)}}"
-                               class="btn btn-sm btn-outline-warning me-2"><i class="fas fa-edit"></i> Edit</a>
+                               class="dashboard-icon"><i class="icon material-icons md-edit"></i></a>
                             <form action="{{route('variety-samples.destroy', $sample->id)}}" method="POST"
                                   style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger me-2"
-                                        onclick="return confirm('Are you sure you want to delete this sample?')"><i
-                                        class="fas fa-trash"></i> Delete
+                                <button type="submit" class="dashboard-icon me-2"
+                                        onclick="return confirm('Are you sure you want to delete this variety report?')">
+                                    <i class="icon material-icons md-restore_from_trash"></i>
                                 </button>
                             </form>
-                            <a href="#" class="btn btn-sm btn-outline-info"><i class="fas fa-share-alt"></i> Share</a>
+                            <a href="#" class="dashboard-icon"><i class="icon material-icons md-share"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
