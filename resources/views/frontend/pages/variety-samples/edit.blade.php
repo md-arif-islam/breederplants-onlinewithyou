@@ -175,7 +175,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mb-4">
+                                <div class="row vss-inputs mb-4">
                                     <div class="col-12">
                                         <div class="row">
                                             @foreach(json_decode($varietySample->images) as $key => $image)
@@ -200,7 +200,7 @@
                                     </div>
                                 </div>
                                 <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary">Update Variety Sample</button>
+                                    <button type="submit" class="btn vrs-button w-100">Save</button>
                                 </div>
                             </form>
                         </div>

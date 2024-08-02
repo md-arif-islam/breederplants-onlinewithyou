@@ -21,8 +21,9 @@
                                                 </a>
                                             </div>
                                             <div class="variety-report-show-img-div text-center">
-                                                @if($varietyReport->samples->isNotEmpty())
-                                                    @php
+
+                                                @php
+                                                    if ($varietyReport->samples->isNotEmpty()){
                                                         $samples = $varietyReport->samples;
                                                         $lastSample = $samples->last();
                                                         $images = $lastSample ? json_decode($lastSample->images) : [];
@@ -31,10 +32,13 @@
                                                         } else {
                                                             $lastImage = "/assets/backend/imgs/products/blank_product.png";
                                                         }
-                                                    @endphp
-                                                    <img class="variety-report-show-img" src="{{ asset($lastImage) }}"
-                                                         alt="{{ $varietyReport->variety_name }}">
-                                                @endif
+                                                    }else{
+                                                        $lastImage = "/assets/backend/imgs/products/blank_product.png";
+                                                    }
+                                                @endphp
+                                                <img class="variety-report-show-img" src="{{ asset($lastImage) }}"
+                                                     alt="{{ $varietyReport->variety_name }}">
+
                                             </div>
                                         </div>
                                         <div class="entry-content vrs-content">
@@ -102,7 +106,6 @@
 
                             @foreach($varietyReport->samples as $sample)
 
-
                                 <a href="{{ route('frontend.variety-samples.show', $sample->id) }}"
                                    class="col-md-6 col-sm-12">
                                     <div class="row variety-report-item">
@@ -138,7 +141,8 @@
                             <div class="col-lg-12 col-md-12">
                                 <div class="input-style mt-20 mb-20">
                                     <a href="{{ route('frontend.variety-samples.create', $varietyReport->id) }}"
-                                       class="btn vrs-button hover-up w-100" ><i class="fal fa-plus-circle fa-fw"></i> Add New
+                                       class="btn vrs-button hover-up w-100"><i class="fal fa-plus-circle fa-fw"></i>
+                                        Add New
                                         Sample</a>
                                 </div>
                             </div>

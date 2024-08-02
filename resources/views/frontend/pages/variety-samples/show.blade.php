@@ -36,13 +36,33 @@
                                     <div class="detail-gallery">
                                         <!-- MAIN SLIDES -->
                                         <div class="product-image-slider">
-                                            @foreach(json_decode($sample->images) as $image)
-                                                <figure class="border-radius-10">
-                                                    <a href="{{ asset($image) }}" class="popup-link">
-                                                        <img src="{{ asset($image) }}" alt="Sample Image">
-                                                    </a>
-                                                </figure>
-                                            @endforeach
+
+                                            @php
+                                                $images = json_decode($sample->images);
+                                                if (count($images) > 0) {
+                                                    foreach ($images as $image) {
+                                            @endphp
+                                            <figure class="border-radius-10">
+                                                <a href="{{ asset($image) }}" class="popup-link">
+                                                    <img src="{{ asset($image) }}" alt="Sample Image">
+                                                </a>
+                                            </figure>
+                                            @php
+                                                }
+                                            } else {
+                                            @endphp
+                                            <figure class="border-radius-10">
+                                                <a href="{{asset('assets/backend/imgs/products/blank_product.png')}}"
+                                                   class="popup-link">
+                                                    <img src="{{ asset('assets/backend/imgs/products/blank_product.png') }}"
+                                                         alt="Sample Image">
+                                                </a>
+                                            </figure>
+                                            @php
+                                                }
+                                            @endphp
+
+
                                         </div>
                                         <!-- THUMBNAILS -->
                                         <div class="slider-nav-thumbnails pl-15 pr-15">
@@ -60,7 +80,8 @@
                                     <div class="detail-info">
                                         <div class="d-flex justify-content-between mb-20">
                                             <h2 class="vrs-title">{{ $sample->varietyReport->variety_name}}</h2>
-                                            <a href="{{ route('frontend.variety-samples.edit', $sample->id) }}" class="vss-change-btn"> <i class="far fa-pen"></i>
+                                            <a href="{{ route('frontend.variety-samples.edit', $sample->id) }}"
+                                               class="vss-change-btn"> <i class="far fa-pen"></i>
                                                 Change</a>
                                         </div>
                                         <div class="d-flex justify-content-between ves-items">

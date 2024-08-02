@@ -28,7 +28,7 @@
                     <div class="contact-from-area padding-20-row-col wow FadeInUp">
                         <form class="contact-form-style text-center" id="contact-form" action="{{ route('frontend.variety-samples.store', ['variety_report_id' => $variety_report_id]) }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="row">
+                            <div class="row vss-inputs">
                                 <!-- Fields for creating variety sample attributes -->
                                 <div class="col-lg-6 col-md-6">
                                     <div class="input-style mb-20">

@@ -11081,29 +11081,29 @@ p {
     background-color: #FCFCFC !important;
     margin-top: -30px !important;
     padding-bottom: 20px !important;
-    border-radius: 20px!important;
-    border: 0!important;
+    border-radius: 20px !important;
+    border: 0 !important;
     z-index: 9999;
     position: relative;
     box-shadow: none !important;
 }
 
-.vrs-article{
-    border: 0!important;
+.vrs-article {
+    border: 0 !important;
 }
 
-.ves-items span{
+.ves-items span {
     font-family: "Poppins", sans-serif !important;
     font-weight: 400 !important;
     font-size: 14px !important;
     color: #000000 !important;
 }
 
-.ves-items span.name{
+.ves-items span.name {
     font-weight: 500 !important;
 }
 
-.vrs-button{
+.vrs-button {
     background-color: #5EAC47 !important;
     font-family: "Poppins", sans-serif !important;
     font-weight: 500 !important;
@@ -11159,7 +11159,8 @@ p {
     height: 100px;
     object-fit: cover;
 }
-.slider-nav-thumbnails .slick-slide img{
+
+.slider-nav-thumbnails .slick-slide img {
     width: 100px;
     height: 130px;
     border-radius: 10px;
@@ -11174,41 +11175,61 @@ p {
     color: #fff !important;
 }
 
-.vss-change-btn{
+.vss-change-btn {
     background-color: #5EAC47;
     padding: 5px 10px;
     color: #fff;
     border-radius: 8px;
 }
 
-.vss-change-btn:hover{
+.vss-change-btn:hover {
     color: #fff;
 }
 
 /*------------------ Variety sample Edit-------------*/
-.vse-image{
+.vse-image {
     text-align: center;
     margin: 10px 0;
 }
-.vse-image img{
+
+.vse-image img {
     width: 100%;
     height: 150px;
     object-fit: cover;
     border-radius: 10px;
 }
 
-.vse-image input[type="checkbox"]{
+.vse-image input[type="checkbox"] {
     width: 20px;
     height: 20px;
     display: inline-block;
 }
-.vse-image span{
+
+.vse-image span {
     margin-left: 5px;
     font-family: "Poppins", sans-serif !important;
     color: red;
     font-weight: 500;
 }
 
-.vss-inputs input{
-    background-color: #fff!important;
+.vss-inputs label {
+    font-family: "Poppins", sans-serif !important;
+    color: #232323;
+    font-weight: 500!important;
+    font-size: 16px!important;
 }
+
+.vss-inputs input,
+.vss-inputs input[type="file"] {
+    background-color: #fff !important;
+    border-radius: 12px!important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.vss-inputs input::placeholder {
+    color: #232323 !important;
+    font-weight: 400!important;
+
+}
+
