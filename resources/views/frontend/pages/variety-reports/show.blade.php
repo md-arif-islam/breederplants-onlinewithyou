@@ -12,7 +12,7 @@
                                     <article class="first-post mb-30 wow fadeIn animated hover-up">
                                         <div class="img-hover-slide position-relative overflow-hidden">
                                             <div class="top-right-icon">
-                                                <a href="javascript:history.back()">
+                                                <a href="{{ url()->previous() }}">
                                                     <div class="notification shadow">
                                                         <img src="{{ asset('assets/frontend/imgs/Chevron_Left.svg') }}"
                                                              alt="">
@@ -25,7 +25,11 @@
                                                         $samples = $varietyReport->samples;
                                                         $lastSample = $samples->last();
                                                         $images = $lastSample ? json_decode($lastSample->images) : [];
-                                                        $lastImage = $images[count($images) - 1];
+                                                        if (count($images) > 0) {
+                                                            $lastImage = $images[count($images) - 1] ;
+                                                        } else {
+                                                            $lastImage = "/assets/backend/imgs/products/blank_product.png";
+                                                        }
                                                     @endphp
                                                     <img class="variety-report-show-img" src="{{ asset($lastImage) }}"
                                                          alt="{{ $varietyReport->variety_name }}">
@@ -105,7 +109,11 @@
                                     <div class="row variety-report-item">
                                         @php
                                             $images = json_decode($sample->images);
-                                            $lastImage = $images[count($images) - 1];
+                                            if (count($images) > 0) {
+                                            $lastImage = $images[count($images) - 1] ;
+                                            } else {
+                                                $lastImage = "/assets/backend/imgs/products/blank_product.png";
+                                            }
                                         @endphp
                                         <div class="col-5 bg-image"
                                              style="background-image: url({{ asset($lastImage) }}); background-size: cover; height: auto; min-height: 300px; background-position: center">

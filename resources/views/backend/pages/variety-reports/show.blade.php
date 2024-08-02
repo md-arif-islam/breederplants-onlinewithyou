@@ -14,7 +14,12 @@
                             $samples = $varietyReport->samples;
                             $lastSample = $samples->last();
                             $images = $lastSample ? json_decode($lastSample->images) : [];
-                            $lastImage = $images[count($images) - 1] ;
+
+                            if (count($images) > 0) {
+                                $lastImage = $images[count($images) - 1] ;
+                            } else {
+                                $lastImage = "/assets/backend/imgs/products/blank_product.png";
+                            }
                         @endphp
 
                         <img src="{{ asset($lastImage) }}" alt="Thumbnail"
@@ -31,17 +36,17 @@
 
                     <div class="mb-4">
                         <label class="form-label">Grower Name</label>
-                        <p>{{ $varietyReport->grower->name ?? 'N/A' }}</p>
+                        <p>{{ $varietyReport->grower->company_name ?? 'N/A' }}</p>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label">Breeder Name</label>
-                        <p>{{ $varietyReport->breeder->name ?? 'N/A' }}</p>
+                        <p>{{ $varietyReport->breeder->company_name ?? 'N/A' }}</p>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label">Trial Location</label>
-                        <p>{{ $varietyReport->grower->name  }}</p>
+                        <p>{{ $varietyReport->grower->company_name  }}</p>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Date of Propagation</label>
@@ -125,7 +130,11 @@
                         <a href="{{route('variety-samples.show', $sample->id)}}">
                             @php
                                 $images = json_decode($sample->images);
-                                $lastImage = $images[count($images) - 1];
+                                if (count($images) > 0) {
+                                    $lastImage = $images[count($images) - 1];
+                                } else {
+                                    $lastImage = "/assets/backend/imgs/products/blank_product.png";
+                                }
 
                             @endphp
                             <img src="{{ asset($lastImage) }}" alt="Sample Image" class="admin-variety-report-img">

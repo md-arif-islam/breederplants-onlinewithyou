@@ -44,7 +44,7 @@
                                     id="breeder_id">
                                 @foreach($breeders as $user)
                                     @if($user->breeder)
-                                        <option value="{{ $user->id }}">{{ $user->breeder->name }}</option>
+                                        <option value="{{ $user->id }}">{{ $user->breeder->company_name }}</option>
                                     @endif
                                 @endforeach
                             </select>

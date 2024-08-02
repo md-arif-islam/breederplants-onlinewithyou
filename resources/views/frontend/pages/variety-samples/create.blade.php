@@ -6,7 +6,7 @@
         <div class="container">
             <div class="d-flex">
                 <div class="credit">
-                    <a href="javascript:history.back()">
+                    <a href="{{ url()->previous() }}">
                         <div class="notification">
                             <img src="{{ asset('assets/frontend/imgs/Chevron_Left.svg') }}"
                                  alt="">
@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-xl-8 col-lg-10 m-auto">
                     <div class="contact-from-area padding-20-row-col wow FadeInUp">
-                        <form class="contact-form-style text-center" id="contact-form" action="{{ route('variety-samples.store', ['variety_report_id' => $variety_report_id]) }}" method="POST" enctype="multipart/form-data">
+                        <form class="contact-form-style text-center" id="contact-form" action="{{ route('frontend.variety-samples.store', ['variety_report_id' => $variety_report_id]) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <!-- Fields for creating variety sample attributes -->

@@ -32,7 +32,7 @@
                                 @foreach($growers as $user)
                                     @if($user->grower)
                                         <option
-                                            value="{{ $user->id }}" {{ $varietyReport->grower_id == $user->id ? 'selected' : '' }}>{{ $user->grower->name}}</option>
+                                            value="{{ $user->id }}" {{ $varietyReport->grower_id == $user->id ? 'selected' : '' }}>{{ $user->grower->company_name}}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -48,7 +48,7 @@
                                 @foreach($breeders as $user)
                                     @if($user->breeder)
                                         <option
-                                            value="{{ $user->id }}" {{ $varietyReport->breeder_id == $user->id ? 'selected' : '' }}>  {{ $user->breeder->name }}</option>
+                                            value="{{ $user->id }}" {{ $varietyReport->breeder_id == $user->id ? 'selected' : '' }}>  {{ $user->breeder->company_name }}</option>
                                     @endif
                                 @endforeach
                             </select>

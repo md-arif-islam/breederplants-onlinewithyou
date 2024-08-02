@@ -65,7 +65,11 @@
                                 $samples = $report->samples;
                                 $lastSample = $samples->last();
                                 $images = $lastSample ? json_decode($lastSample->images) : [];
-                                $lastImage = $images[count($images) - 1] ;
+                                if (count($images) > 0) {
+                                     $lastImage = $images[count($images) - 1] ;
+                                } else {
+                                    $lastImage = "/assets/backend/imgs/products/blank_product.png";
+                                }
                             @endphp
 
                             <a href="{{ route('variety-reports.show', $report->id) }}">
@@ -79,15 +83,15 @@
 
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Grower name</span>
-                                <span>{{ $report->grower->name  }}</span>
+                                <span>{{ $report->grower->company_name  }}</span>
                             </div>
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Breeder name</span>
-                                <span>{{ $report->breeder->name }}</span>
+                                <span>{{ $report->breeder->company_name }}</span>
                             </div>
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Trial Location</span>
-                                <span>{{ $report->grower->name  }}</span>
+                                <span>{{ $report->grower->company_name  }}</span>
                             </div>
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Date of propagation</span>

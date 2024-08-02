@@ -39,7 +39,11 @@
                                         $samples = $report->samples;
                                         $lastSample = $samples->last();
                                         $images = $lastSample ? json_decode($lastSample->images) : [];
-                                        $lastImage = $images[count($images) - 1] ;
+                                        if (count($images) > 0) {
+                                            $lastImage = $images[count($images) - 1] ;
+                                        } else {
+                                            $lastImage = "/assets/backend/imgs/products/blank_product.png";
+                                        }
                                     @endphp
                                     <div class="col-5 bg-image"
                                          style="background-image: url({{ asset($lastImage) }}); background-size: cover; height: auto; min-height: 300px; background-position: center">

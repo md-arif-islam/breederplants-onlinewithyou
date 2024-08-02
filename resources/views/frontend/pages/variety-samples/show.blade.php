@@ -15,7 +15,7 @@
             <div class="container">
                 <div class="d-flex">
                     <div class="credit ">
-                        <a href="javascript:history.back()" class="notification">
+                        <a href="{{ url()->previous() }}" class="notification">
                             <img src="{{ asset('assets/frontend/imgs/Chevron_Left.svg') }}" alt="">
                         </a>
                     </div>
