@@ -11,7 +11,7 @@
         });
 
         $('.slider-nav-thumbnails').slick({
-            slidesToShow: 5,
+            slidesToShow: 3,
             slidesToScroll: 1,
             asNavFor: '.product-image-slider',
             dots: false,

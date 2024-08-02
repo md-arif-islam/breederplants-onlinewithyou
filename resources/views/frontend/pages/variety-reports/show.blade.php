@@ -42,7 +42,6 @@
                                                 <h2 class="vrs-title">{{ $varietyReport->variety_name }}</h2>
                                             </div>
 
-
                                             <div class="d-flex justify-content-between ves-items">
                                                 <span class="name">Grower Name</span>
                                                 <span>{{ $varietyReport->grower->name ?? 'N/A' }}</span>
