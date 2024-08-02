@@ -3,7 +3,7 @@
 <head>
     @include('frontend.layouts.partials.head')
 </head>
-<body>
+<body class="@yield('body-class')">
 @yield('content')
 @include('frontend.layouts.partials.scripts')
 </body>

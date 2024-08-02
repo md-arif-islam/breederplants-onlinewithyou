@@ -1,5 +1,6 @@
 @extends('frontend.layouts.app')
 @section('title', 'Create Variety Sample')
+@section('body-class', 'body-FCFCFC')
 @section('content')
 
     <div class="page-header breadcrumb-wrap2">

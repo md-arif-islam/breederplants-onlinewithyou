@@ -1,41 +1,8 @@
-/***
- Theme Name: Evara
- Theme URI: http://wp.alithemes.com/html/Evara
- Description: eCommerce HTML + Admin Template
- Author: alithemes.com
- Author URI: http://alithemes.com
- Version: 3.0
- License: GNU General Public License v2 or later
- License URI: http://www.gnu.org/licenses/gpl-2.0.html
-==============================
-TABLE CONTENT
- Import Google Fonts
- Include Third Party CSS Library
- GENERAL
- HEADER
- Offcanvas Sidebar
- Search form
- Main header
- Mega menu
- Header layouts
- Page layouts
- Pagination
- Breadcrumb
- CATEGORY PAGES
- SINGLE POST
- Author box
- comment
- Post share social
- WP STYPE
- Custom amine
-***/
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600;700&display=swap");
-/*import vendors*/
 @import url(vendors/normalize.css);
 @import url(vendors/bootstrap.min.css);
 @import url(vendors/evara-font.css);
 @import url(vendors/uicons-regular-straight.css);
+@import url(vendors/fontawesome-all.min.css);
 /*import plugins*/
 @import url(plugins/jquery-ui.css);
 @import url(plugins/magnific-popup.css);
@@ -974,14 +941,14 @@ h5.widget-title {
 
 button.submit,
 button[type="submit"],
-.submit{
+.submit {
     font-size: 15px;
     font-weight: 500;
     padding: 12px 40px;
     color: #ffffff;
     border: none;
     background-color: #61a94c;
-    width: 100%!important;
+    width: 100% !important;
     border-radius: 30px;
 }
 
@@ -2596,40 +2563,6 @@ label {
     animation-delay: 1.5s;
 }
 
-/*page header*/
-.page-header .page-title {
-    font-weight: 900;
-    font-size: 4rem;
-}
-
-.page-header.breadcrumb-wrap {
-    padding: 40px 10px 60px 10px;
-    background-color: #5eac47;
-}
-
-.page-header .breadcrumb {
-    display: inline-block;
-    padding: 0;
-    text-transform: capitalize;
-    color: #6e6e6e;
-    font-size: 0.875rem;
-    background: none;
-    margin: 0;
-    border-radius: 0;
-}
-
-.page-header .breadcrumb span {
-    position: relative;
-    text-align: center;
-    padding: 0 10px;
-}
-
-.page-header .breadcrumb span::before {
-    content: "\f111";
-    font-family: "uicons-regular-straight" !important;
-    display: inline-block;
-    font-size: 9px;
-}
 
 /*****************************
 *********  SOCIAL NETWORKS  **********
@@ -5260,7 +5193,7 @@ h6.post-title {
 }
 
 .loop-grid .entry-content-2 {
-    padding: 20px;
+    padding: 10px;
 }
 
 .loop-grid.loop-list {
@@ -10700,45 +10633,77 @@ a::before {
     z-index: 9999;
 }
 
-/*# sourceMappingURL=main.css.map */
 
-/* ---------------------------------------------------- */
+/* ---------------- Page Header ------------------------------------ */
+
+
+.page-header .page-title {
+    font-weight: 900;
+    font-size: 4rem;
+}
+
+.page-header.breadcrumb-wrap {
+    padding: 20px 10px 40px 10px;
+    background-color: #5eac47;
+}
+
+.page-header .breadcrumb {
+    display: inline-block;
+    padding: 0;
+    text-transform: capitalize;
+    color: #6e6e6e;
+    font-size: 0.875rem;
+    background: none;
+    margin: 0;
+    border-radius: 0;
+}
+
+.page-header .breadcrumb span {
+    position: relative;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.page-header .breadcrumb span::before {
+    content: "\f111";
+    font-family: "uicons-regular-straight" !important;
+    display: inline-block;
+    font-size: 9px;
+}
+
 .page-header .credit {
     display: flex;
     align-items: center;
 }
 
-.page-header .credit img {
-    width: 44px;
-    height: 44px;
-    margin-right: 10px;
-}
 
 .page-header .credit .user h5 {
     font-size: 14px;
     color: #ffffff;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 400 !important;
 }
 
 .page-header .credit .user h2 {
     font-size: 16px;
     color: #ffffff;
     display: inline-block;
+    font-family: "Poppins", sans-serif !important;
 }
 
 .page-header .notification img {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     background-color: #ffffff;
     padding: 10px;
     border-radius: 10px;
 }
 
 .main-section {
-    background-color: #fff;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     margin-top: -20px;
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 .main-section .single-header h1 {
@@ -10767,10 +10732,10 @@ a::before {
 }
 
 .main-section-2 .notification {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     background-color: #ffffff;
-    padding: 10px;
+    padding: 7px;
     border-radius: 10px;
 }
 
@@ -10929,32 +10894,6 @@ p {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.variety-report-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-}
-
-.variety-report-item {
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-.variety-report-item:hover {
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-
-.variety-report-item .bg-image {
-    background-size: cover;
-    height: 300px;
-    background-position: center;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
 .entry-content-2 {
     padding: 15px;
 }
@@ -10980,24 +10919,12 @@ p {
     }
 }
 
-.variety-report-show-img-div {
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.variety-report-show-img {
-    width: 100%;
-    height: auto;
-    max-height: 500px;
-    object-fit: cover;
-}
-
 .product-image-slider {
-    background-color: #fff!important;
-    margin-bottom: 30px!important;
-    border-radius: 10px!important;
-    text-align: center!important;
-    border: 1px solid #ddd!important;
+    background-color: #fff !important;
+    margin-bottom: 30px !important;
+    border-radius: 10px !important;
+    text-align: center !important;
+    border: 1px solid #ddd !important;
 }
 
 .slick-initialized .slick-slide {
@@ -11006,7 +10933,8 @@ p {
     justify-content: center;
     flex-wrap: wrap;
 }
-.slick-track .popup-link img{
+
+.slick-track .popup-link img {
     max-height: 500px;
 }
 
@@ -11014,15 +10942,66 @@ p {
     height: 100px;
     object-fit: cover;
 }
-.btn{
+
+.btn {
     border-radius: 20px;
-    border: none!important;
+    border: none !important;
 }
 
+
+/*---------------------------Login --------------------*/
+
+.login-page-logo {
+    padding: 0 20px;
+}
+
+.login-page-heading {
+    font-family: "Poppins", sans-serif;
+    color: #292D32;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.login-page-text {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    line-height: 21px;
+}
+
+.login-page-input {
+    border: 1px solid rgba(95, 95, 95, 0.2) !important;
+    border-radius: 50px !important;
+    color: #292D32 !important;
+    font-family: "Poppins", sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400;
+}
+
+.login-page-input::placeholder {
+    color: #292D32 !important;
+    font-weight: 400;
+}
+
+.login-page-button-div {
+    margin-top: 25px;
+    border: 1px solid rgba(95, 95, 95, 0.2) !important;
+    border-radius: 50px !important;
+    padding: 8px;
+}
+
+.login-page-button {
+    background-color: #61A94C !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+}
+
+/*--------------variety report index page ----------*/
+
 .name-logo {
-    width: 50px;
-    height: 50px;
-    background-color: #ddd;
+    width: 44px;
+    height: 44px;
+    background-color: #E9E9E9;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11030,10 +11009,142 @@ p {
     border-radius: 50%;
 }
 
-.name-logo span{
-    color: #000;
-    font-size: 14px;
+.name-logo span {
+    font-family: "Poppins", sans-serif !important;
+    color: #5EAC47;
+    font-size: 16px;
     font-weight: bold;
     letter-spacing: 1px;
 }
 
+.vri-head {
+    font-family: "Poppins", sans-serif !important;
+    font-weight: bold;
+    font-size: 18px !important;
+    color: #232323 !important;
+}
+
+
+.variety-report-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.variety-report-item {
+    margin: 10px 0;
+    border: 1px solid #E4E4E4;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+    padding: 3px;
+    background-color: #fff;
+}
+
+.variety-report-item:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.variety-report-item .bg-image {
+    background-size: cover;
+    height: auto;
+    min-height: 120px;
+    background-position: center;
+    border-radius: 10px;
+}
+
+.body-FCFCFC {
+    background-color: #FCFCFC !important;
+}
+
+.vri-title {
+    font-family: "Roboto", sans-serif;
+    color: #232323;
+    font-size: 18px;
+}
+
+.vri-excerpt {
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-family: "Inter", sans-serif;
+    color: #727272;
+    font-weight: bold;
+}
+
+.vri-excerpt span {
+    font-weight: normal;
+}
+
+.vri-content i {
+    color: #292D32;
+}
+
+/*-------------- Variety Report Show ------------------*/
+
+.variety-report-show-img-div {
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.variety-report-show-img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.vrs-title {
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 26px !important;
+    color: #232323 !important;
+}
+
+.vrs-content {
+    background-color: #FCFCFC !important;
+    margin-top: -30px !important;
+    padding-bottom: 20px !important;
+    border-radius: 20px!important;
+    border: 0!important;
+    z-index: 9999;
+    position: relative;
+    box-shadow: none !important;
+}
+
+.vrs-article{
+    border: 0!important;
+}
+
+.ves-items span{
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    color: #000000 !important;
+}
+
+.ves-items span.name{
+    font-weight: 500 !important;
+}
+
+.vrs-button{
+    background-color: #5EAC47 !important;
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    border-radius: 12px !important;
+    padding: 12px 40px !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+.vrs-excerpt {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-family: "Inter", sans-serif;
+    color: #727272;
+    font-weight: bold;
+}
+
+.vrs-excerpt span {
+    font-weight: normal;
+}

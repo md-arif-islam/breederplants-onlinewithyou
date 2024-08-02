@@ -1,5 +1,6 @@
 @extends('frontend.layouts.app')
 @section('title', 'Edit Variety Report')
+@section('body-class', 'body-FCFCFC')
 @section('content')
     <main class="main">
         <div class="page-header breadcrumb-wrap">

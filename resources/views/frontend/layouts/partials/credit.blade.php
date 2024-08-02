@@ -28,7 +28,7 @@
 @endphp
 <div class="name-logo"><span>{{$nameLogo}}</span></div>
 <div class="user">
-    <h5>Welcome Back</h5>
+    <h5>Welcome Back!</h5>
     <h2>
         {{ $userName }}
     </h2>
