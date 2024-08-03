@@ -60,8 +60,9 @@
             @foreach($varietyReports as $report)
                 <div class="col-xl-4 col-lg-6 col-md-12">
                     <div class="card card-product-grid admin-variety-report-index">
-                        @if($report->samples->isNotEmpty())
+
                             @php
+                            if ($report->samples->isNotEmpty()){
                                 $samples = $report->samples;
                                 $lastSample = $samples->last();
                                 $images = $lastSample ? json_decode($lastSample->images) : [];
@@ -70,13 +71,16 @@
                                 } else {
                                     $lastImage = "/assets/backend/imgs/products/blank_product.png";
                                 }
+                                }else{
+                                    $lastImage = "/assets/backend/imgs/products/blank_product.png";
+                                }
                             @endphp
 
                             <a href="{{ route('variety-reports.show', $report->id) }}">
                                 <img src="{{ asset($lastImage) }}" alt="Product" class="admin-variety-report-img">
                             </a>
 
-                        @endif
+
                         <div class="info-wrap">
                             <a href="{{route('variety-reports.show', $report->id)}}"
                                class="title">{{ $report->variety_name }}</a>

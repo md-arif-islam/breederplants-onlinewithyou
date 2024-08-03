@@ -21,7 +21,7 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($request->only('email', 'password'))) {
+        if (Auth::attempt($request->only('email', 'password'), true)) {
             $request->session()->regenerate();
 
             $role = Auth::user()->role;

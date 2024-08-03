@@ -188,15 +188,15 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <div class="mb-4">
-                                            <label for="images" class="form-label">Add New Images</label>
-                                            <input type="file" name="images[]"
-                                                   class="form-control @error('images') is-invalid @enderror"
-                                                   id="images" multiple>
-                                            @error('images')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
+                                          <!-- Input fields for adding new images -->
+                                <div class="mb-4">
+                                    <label for="images" class="form-label">Add New Images</label>
+                                    <div id="new-images-container"></div>
+                                    <button type="button" class="btn btn-primary mb-2" onclick="addImageField()">Add Image</button>
+                                    @error('images')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                                     </div>
                                 </div>
                                 <div class="d-grid">
@@ -210,4 +210,30 @@
             </div>
         </section>
     </main>
+@endsection
+
+@section('scripts')
+    <script>
+        let imageFieldIndex = 0;
+
+        function addImageField() {
+            const container = document.getElementById('new-images-container');
+            const div = document.createElement('div');
+            div.className = 'input-group mb-2';
+            div.id = 'image-field-' + imageFieldIndex;
+            div.innerHTML = `
+            <input type="file" name="images[]" class="form-control mb-2" required>
+            <button type="button" class="btn btn-danger mb-2" onclick="removeImageField(${imageFieldIndex})">Remove</button>
+        `;
+            container.appendChild(div);
+            imageFieldIndex++;
+        }
+
+        function removeImageField(index) {
+            const element = document.getElementById('image-field-' + index);
+            if (element) {
+                element.remove();
+            }
+        }
+    </script>
 @endsection

@@ -10,8 +10,13 @@
                     <div class="credit">
                         @include('frontend.layouts.partials.credit')
                     </div>
-                    <div class="notification">
-                        <img src="{{ asset('assets/frontend/imgs/notification-bing.svg') }}" alt="">
+                    <div class="d-flex justify-content-between">
+                        <div class="notification mx-1">
+                            <img src="{{ asset('assets/frontend/imgs/notification-bing.svg') }}" alt="">
+                        </div>
+                        <a href="{{route('logout')}}" class="notification mx-1">
+                            <img src="{{ asset('assets/frontend/imgs/Log_Out.svg') }}" alt="">
+                        </a>
                     </div>
                 </div>
             </div>

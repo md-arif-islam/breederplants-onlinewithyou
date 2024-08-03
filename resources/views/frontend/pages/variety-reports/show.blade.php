@@ -13,7 +13,7 @@
                                     <article class="vrs-article first-post mb-30 wow fadeIn animated hover-up">
                                         <div class="img-hover-slide position-relative overflow-hidden">
                                             <div class="top-right-icon">
-                                                <a href="{{ url()->previous() }}">
+                                                <a href="{{route('frontend.variety-reports.index')}}">
                                                     <div class="notification shadow">
                                                         <img src="{{ asset('assets/frontend/imgs/Chevron_Left.svg') }}"
                                                              alt="">
