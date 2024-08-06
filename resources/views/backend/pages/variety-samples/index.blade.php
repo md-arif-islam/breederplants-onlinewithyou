@@ -9,8 +9,12 @@
         <div class="card card-body">
             <div class="row mb-4">
                 @foreach(json_decode($sample->images) as $image)
-                    <div class="col-md-3">
-                        <img src="{{ asset($image) }}" alt="Sample Image" style="max-width: 100%; height: auto;">
+                    <div class="col-md-3 mb-3">
+                        <div class="card shadow-sm">
+                            <a href="{{ asset($image) }}" class="vsi-image">
+                                <img src="{{ asset($image) }}" alt="Sample Image" class="card-img-top">
+                            </a>
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -18,81 +22,97 @@
                 <div class="col-md-6">
                     <div class="mb-4">
                         <label class="form-label">Sample Date</label>
-                        <p>{{ $sample->sample_date }}</p>
+                        <input type="text" class="form-control" value="{{ $sample->sample_date }}" disabled>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Leaf Color</label>
-                        <p>{{ $sample->leaf_color }}</p>
+                        <input type="text" class="form-control" value="{{ $sample->leaf_color }}" disabled>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Amount of Branches</label>
-                        <p>{{ $sample->amount_of_branches }}</p>
+                        <input type="number" class="form-control" value="{{ $sample->amount_of_branches }}" disabled>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Flower Buds</label>
-                        <p>{{ $sample->flower_buds }}</p>
+                        <input type="text" class="form-control" value="{{ $sample->flower_buds }}" disabled>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Branch Color</label>
-                        <p>{{ $sample->branch_color }}</p>
+                        <input type="text" class="form-control" value="{{ $sample->branch_color }}" disabled>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Roots</label>
-                        <p>{{ $sample->roots }}</p>
+                        <input type="text" class="form-control" value="{{ $sample->roots }}" disabled>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
                         <label class="form-label">Flower Color</label>
-                        <p>{{ $sample->flower_color }}</p>
+                        <input type="text" class="form-control" value="{{ $sample->flower_color }}" disabled>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Flower Petals</label>
-                        <p>{{ $sample->flower_petals }}</p>
+                        <input type="number" class="form-control" value="{{ $sample->flower_petals }}" disabled>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Flowering Time</label>
-                        <p>{{ $sample->flowering_time }}</p>
+                        <input type="text" class="form-control" value="{{ $sample->flowering_time }}" disabled>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Length of Flowering</label>
-                        <p>{{ $sample->length_of_flowering }}</p>
+                        <input type="text" class="form-control" value="{{ $sample->length_of_flowering }}" disabled>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Seeds</label>
-                        <p>{{ $sample->seeds }}</p>
+                        <input type="text" class="form-control" value="{{ $sample->seeds }}" disabled>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Seed Color</label>
-                        <p>{{ $sample->seed_color }}</p>
+                        <input type="text" class="form-control" value="{{ $sample->seed_color }}" disabled>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Amount of Seeds</label>
-                        <p>{{ $sample->amount_of_seeds }}</p>
+                        <input type="number" class="form-control" value="{{ $sample->amount_of_seeds }}" disabled>
                     </div>
                     <div class="mb-4">
                         <label class="form-label">Status</label>
-                        <p>{{ $sample->status ? 'Active' : 'Inactive' }}</p>
+                        <input type="text" class="form-control" value="{{ $sample->status ? 'Active' : 'Inactive' }}" disabled>
                     </div>
                 </div>
             </div>
 
             <div class="d-flex justify-content-center mt-3">
-
-                <a href="{{route('variety-samples.edit', $sample->id)}}"
-                   class="dashboard-icon"><i class="icon material-icons md-edit"></i></a>
-                <form action="{{route('variety-samples.destroy', $sample->id)}}" method="POST"
-                      style="display:inline-block;">
+                <a href="{{ route('variety-samples.edit', $sample->id) }}" class="dashboard-icon-2"><i class="icon material-icons md-edit"></i></a>
+                <form action="{{ route('variety-samples.destroy', $sample->id) }}" method="POST" style="display:inline-block;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="dashboard-icon me-2"
-                            onclick="return confirm('Are you sure you want to delete this variety report?')">
+                    <button type="submit" class="dashboard-icon-2 me-2" onclick="return confirm('Are you sure you want to delete this variety report?')">
                         <i class="icon material-icons md-restore_from_trash"></i>
                     </button>
                 </form>
-
             </div>
         </div>
     </section> <!-- content-main end// -->
 
+@endsection
+
+@section('head')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
+@endsection
+
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.vsi-image').magnificPopup({
+                delegate: 'a',
+                type: 'image',
+                gallery: {
+                    enabled: true
+                }
+            });
+        });
+    </script>
 @endsection

@@ -47,14 +47,23 @@
                 </a>
             </li>
 
-{{--            <li class="menu-item {{ Request::routeIs('settings.index') ? 'active' : '' }}">--}}
-{{--                <a class="menu-link" href="{{ route('settings.index') }}"> --}}
+{{--            <li class="menu-item">--}}
+{{--                <a class="menu-link" href="">--}}
 {{--                    <span class="menu-icon">--}}
 {{--                        <img src="{{ asset('assets/backend/imgs/theme/Settings.svg') }}" style="filter: brightness(0.3);" alt="">--}}
 {{--                    </span>--}}
 {{--                    <span class="text">Settings</span>--}}
 {{--                </a>--}}
 {{--            </li>--}}
+
+            <li class="menu-item bottom-0">
+                <a class="menu-link logout-link" href="{{route('logout')}}">
+                    <span class="menu-icon logout">
+                        <img src="{{ asset('assets/backend/imgs/theme/Log_Out.svg') }}" style="filter: brightness(0.3);" alt="">
+                    </span>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </aside>

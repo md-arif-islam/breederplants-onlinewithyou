@@ -12,17 +12,20 @@
                 @method('PUT')
                 <div class="row mb-4">
                     <div class="col-12">
-                        <div class="row">
+                        <div class="row mb-4">
                             @foreach(json_decode($varietySample->images) as $key => $image)
-                                <div class="col-md-3">
+                                <div class="col-md-3 mb-3 vsi-image vse-image">
                                     <img src="{{ asset($image) }}" alt="Sample Image" style="max-width: 100%; height: auto;">
-                                    <input type="checkbox" name="delete_images[]" value="{{ $image }}"> Delete
+                                    <div class="d-flex text-center align-items-center justify-content-center">
+                                        <input type="checkbox" name="delete_images[]" value="{{ $image }}">
+                                        <span>Delete</span>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
                         <div class="mb-4">
                             <label for="images" class="form-label">Add New Images</label>
-                            <div id="new-images-container"></div>
+                            <div id="new-images-container" class="mb-3"></div>
                             <button type="button" class="btn btn-primary" onclick="addImageField()">Add Image</button>
                             @error('images')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -30,21 +33,17 @@
                         </div>
                     </div>
                 </div>
-                <!-- Other fields for updating variety sample attributes -->
+
                 <div class="row">
+                    <!-- First column of input fields -->
                     <div class="col-md-6">
-                        <!-- First column of input fields -->
                         <div class="mb-4">
-                            <label for="date" class="form-label">Sample Date</label>
-                            <input type="date" name="sample_date" class="form-control @error('sample_date') is-invalid @enderror" id="date" value="{{ old('sample_date', $varietySample->sample_date) }}">
+                            <label for="sample_date" class="form-label">Sample Date</label>
+                            <input type="date" name="sample_date" class="form-control @error('sample_date') is-invalid @enderror" id="sample_date" value="{{ old('sample_date', $varietySample->sample_date) }}">
                             @error('sample_date')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
-                    </div>
-                    <div class="col-md-6">
-                        <!-- Second column of input fields -->
                         <div class="mb-4">
                             <label for="leaf_color" class="form-label">Leaf Color</label>
                             <input type="text" name="leaf_color" class="form-control @error('leaf_color') is-invalid @enderror" id="leaf_color" value="{{ old('leaf_color', $varietySample->leaf_color) }}" placeholder="Enter leaf color">
@@ -73,8 +72,6 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
-                    <div class="col-md-6">
                         <div class="mb-4">
                             <label for="roots" class="form-label">Roots</label>
                             <input type="text" name="roots" class="form-control @error('roots') is-invalid @enderror" id="roots" value="{{ old('roots', $varietySample->roots) }}" placeholder="Enter roots">
@@ -82,6 +79,10 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                    </div>
+
+                    <!-- Second column of input fields -->
+                    <div class="col-md-6">
                         <div class="mb-4">
                             <label for="flower_color" class="form-label">Flower Color</label>
                             <input type="text" name="flower_color" class="form-control @error('flower_color') is-invalid @enderror" id="flower_color" value="{{ old('flower_color', $varietySample->flower_color) }}" placeholder="Enter flower color">
@@ -152,9 +153,9 @@
             div.className = 'input-group mb-2';
             div.id = 'image-field-' + imageFieldIndex;
             div.innerHTML = `
-            <input type="file" name="images[]" class="form-control" required>
-            <button type="button" class="btn btn-danger" onclick="removeImageField(${imageFieldIndex})">Remove</button>
-        `;
+        <input type="file" name="images[]" class="form-control" required>
+        <button type="button" class="btn btn-danger" onclick="removeImageField(${imageFieldIndex})">Remove</button>
+    `;
             container.appendChild(div);
             imageFieldIndex++;
         }

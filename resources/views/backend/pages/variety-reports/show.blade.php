@@ -7,106 +7,92 @@
             <h2 class="content-title">View Variety Report</h2>
         </div>
         <div class="card card-body">
-            <div class="row mb-4">
-                <div class="col-12 text-center">
-                    @if($varietyReport->samples->isNotEmpty())
-                        @php
-                            $samples = $varietyReport->samples;
-                            $lastSample = $samples->last();
-                            $images = $lastSample ? json_decode($lastSample->images) : [];
-
-                            if (count($images) > 0) {
-                                $lastImage = $images[count($images) - 1] ;
-                            } else {
-                                $lastImage = "/assets/backend/imgs/products/blank_product.png";
-                            }
-                        @endphp
-
-                        <img src="{{ asset($lastImage) }}" alt="Thumbnail"
-                             style="max-width: 100%; height: auto; max-height: 500px; border-radius: 10px">
-                    @endif
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-4">
                         <label class="form-label">Variety Name</label>
-                        <p>{{ $varietyReport->variety_name }}</p>
+                        <input type="text" class="form-control" value="{{ $varietyReport->variety_name }}" disabled>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label">Grower Name</label>
-                        <p>{{ $varietyReport->grower->company_name ?? 'N/A' }}</p>
+                        <input type="text" class="form-control" value="{{ $varietyReport->grower->company_name ?? 'N/A' }}" disabled>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label">Breeder Name</label>
-                        <p>{{ $varietyReport->breeder->company_name ?? 'N/A' }}</p>
+                        <input type="text" class="form-control" value="{{ $varietyReport->breeder->company_name ?? 'N/A' }}" disabled>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label">Trial Location</label>
-                        <p>{{ $varietyReport->grower->company_name  }}</p>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">Date of Propagation</label>
-                        <p>{{ $varietyReport->date_of_propagation }}</p>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">Date of Potting</label>
-                        <p>{{ $varietyReport->date_of_potting }}</p>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">Amount of Plants</label>
-                        <p>{{ $varietyReport->amount_of_plants }}</p>
+                        <input type="text" class="form-control" value="{{ $varietyReport->grower->company_name }}" disabled>
                     </div>
 
+                    <div class="mb-4">
+                        <label class="form-label">Date of Propagation</label>
+                        <input type="date" class="form-control" value="{{ $varietyReport->date_of_propagation }}" disabled>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Date of Potting</label>
+                        <input type="date" class="form-control" value="{{ $varietyReport->date_of_potting }}" disabled>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Amount of Plants</label>
+                        <input type="number" class="form-control" value="{{ $varietyReport->amount_of_plants }}" disabled>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-4">
                         <label class="form-label">Next Sample Date</label>
-                        <p>{{ json_decode($varietyReport->samples_schedule)[0]}}</p>
+                        <input type="date" class="form-control" value="{{ json_decode($varietyReport->samples_schedule)[0] }}" disabled>
                     </div>
+
                     <div class="mb-4">
                         <label class="form-label">Amount of Samples</label>
-                        <p>{{ $varietyReport->samples->count() }}</p>
+                        <input type="number" class="form-control" value="{{ $varietyReport->samples->count() }}" disabled>
                     </div>
+
                     <div class="mb-4">
                         <label class="form-label">Pot Size</label>
-                        <p>{{ $varietyReport->pot_size }}</p>
+                        <input type="text" class="form-control" value="{{ $varietyReport->pot_size }}" disabled>
                     </div>
+
                     <div class="mb-4">
                         <label class="form-label">Pot Trial</label>
-                        <p>{{ $varietyReport->pot_trial ? 'Yes' : 'No' }}</p>
+                        <input type="text" class="form-control" value="{{ $varietyReport->pot_trial ? 'Yes' : 'No' }}" disabled>
                     </div>
+
                     <div class="mb-4">
                         <label class="form-label">Open Field Trial</label>
-                        <p>{{ $varietyReport->open_field_trial ? 'Yes' : 'No' }}</p>
+                        <input type="text" class="form-control" value="{{ $varietyReport->open_field_trial ? 'Yes' : 'No' }}" disabled>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label">Status</label>
-                        <p>{{ $varietyReport->status ? 'Active' : 'Inactive' }}</p>
+                        <input type="text" class="form-control" value="{{ $varietyReport->status ? 'Active' : 'Inactive' }}" disabled>
                     </div>
                 </div>
             </div>
 
             <div class="d-flex justify-content-center mt-3">
-
-                <a href="{{route('variety-reports.edit', $varietyReport->id)}}"
-                   class="dashboard-icon"><i class="icon material-icons md-edit"></i></a>
-                <form action="{{route('variety-reports.destroy', $varietyReport->id)}}" method="POST"
-                      style="display:inline-block;">
+                <a href="{{ route('variety-reports.edit', $varietyReport->id) }}" class="dashboard-icon-2"><i class="icon material-icons md-edit"></i></a>
+                <form action="{{ route('variety-reports.destroy', $varietyReport->id) }}" method="POST" style="display:inline-block;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="dashboard-icon me-2"
-                            onclick="return confirm('Are you sure you want to delete this variety report?')">
+                    <button type="submit" class="dashboard-icon-2 me-2" onclick="return confirm('Are you sure you want to delete this variety report?')">
                         <i class="icon material-icons md-restore_from_trash"></i>
                     </button>
                 </form>
-
             </div>
         </div>
+
+
+        <br>
+        <hr>
+        <br>
 
         <div class="content-header mt-5">
             <div>
@@ -125,22 +111,42 @@
             @endif
             @foreach($varietyReport->samples as $sample)
                 <div class="col-xl-4 col-lg-6 col-md-12">
+
                     <div class="card card-product-grid admin-variety-report-index">
+                        @php
+                            $images = json_decode($sample->images);
+                            if (count($images) > 0) {
+                                $lastImage = $images[count($images) - 1];
+                            } else {
+                                $lastImage = "/assets/backend/imgs/products/blank_product.png";
+                            }
 
-                        <a href="{{route('variety-samples.show', $sample->id)}}">
-                            @php
-                                $images = json_decode($sample->images);
-                                if (count($images) > 0) {
-                                    $lastImage = $images[count($images) - 1];
-                                } else {
-                                    $lastImage = "/assets/backend/imgs/products/blank_product.png";
-                                }
+                        @endphp
 
-                            @endphp
-                            <img src="{{ asset($lastImage) }}" alt="Sample Image" class="admin-variety-report-img">
-                        </a>
-                        <div class="info-wrap">
+                        <div class="admin-variety-report-img-div">
+                            <a href="{{ route('variety-samples.show', $sample->id) }}">
+                                <img src="{{ asset($lastImage) }}" alt="Product" class="admin-variety-report-img">
+                            </a>
 
+                            <div class="vri-icon-box d-flex justify-content-center mt-3">
+                                <a href="{{route('variety-samples.show', $sample->id)}}"
+                                   class="dashboard-icon"><i class="icon material-icons md-remove_red_eye"></i></a>
+                                <a href="{{route('variety-samples.edit', $sample->id)}}"
+                                   class="dashboard-icon"><i class="icon material-icons md-edit"></i></a>
+                                <form action="{{route('variety-samples.destroy', $sample->id)}}" method="POST"
+                                      style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="dashboard-icon me-2"
+                                            onclick="return confirm('Are you sure you want to delete this variety report?')">
+                                        <i class="icon material-icons md-restore_from_trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+
+                        </div>
+
+                        <div class="info-wrap vri-contents">
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Sample Date</span>
                                 <span>{{ $sample->sample_date }}</span>
@@ -195,24 +201,9 @@
                                 <span>{{ $sample->amount_of_seeds }}</span>
                             </div>
                         </div>
-
-                        <div class="d-flex justify-content-center mt-3">
-                            <a href="{{route('variety-samples.show', $sample->id)}}"
-                               class="dashboard-icon"><i class="icon material-icons md-remove_red_eye"></i></a>
-                            <a href="{{route('variety-samples.edit', $sample->id)}}"
-                               class="dashboard-icon"><i class="icon material-icons md-edit"></i></a>
-                            <form action="{{route('variety-samples.destroy', $sample->id)}}" method="POST"
-                                  style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="dashboard-icon me-2"
-                                        onclick="return confirm('Are you sure you want to delete this variety report?')">
-                                    <i class="icon material-icons md-restore_from_trash"></i>
-                                </button>
-                            </form>
-
-                        </div>
                     </div>
+
+
                 </div>
             @endforeach
         </div>

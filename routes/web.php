@@ -47,9 +47,12 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('/growers/export-csv', [AdminGrowerController::class, 'exportCSV'])->name('growers.exportCSV');
+    Route::get('/breeders/export-csv', [AdminBreederController::class, 'exportCSV'])->name('breeders.exportCSV');
 
     Route::get('/variety-reports', [AdminVarietyReportController::class, 'index'])->name('variety-reports.index');
     Route::get('/variety-reports/create', [AdminVarietyReportController::class, 'create'])->name('variety-reports.create');
@@ -75,7 +78,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/growers/{grower}/edit', [AdminGrowerController::class, 'edit'])->name('growers.edit');
     Route::put('/growers/{grower}', [AdminGrowerController::class, 'update'])->name('growers.update');
     Route::delete('/growers/{grower}', [AdminGrowerController::class, 'destroy'])->name('growers.destroy');
-    Route::put('growers/{grower}/updatePassword', [AdminGrowerController::class, 'updatePassword'])->name('growers.updatePassword');
+    Route::put('/growers/{grower}/updatePassword', [AdminGrowerController::class, 'updatePassword'])->name('growers.updatePassword');
 
 
     // Breeder Routes

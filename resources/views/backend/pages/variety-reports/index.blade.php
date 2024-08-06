@@ -3,50 +3,42 @@
 @section('content')
 
     <section class="content-main">
-        <div class="content-header">
-            <div>
-                <h2 class="content-title card-title">Variety Reports</h2>
-            </div>
-            <div>
-                <a href="{{route('variety-reports.create')}}" class="btn btn-primary btn-sm rounded">Create new</a>
-            </div>
-        </div>
-        <header class="card card-body mb-4">
+
+        <header class="vri-top-header card card-body mb-4">
 
             <form method="GET" action="{{ route('variety-reports.index') }}">
                 <div class="row gx-3">
-                    <div class="col-lg-4 col-md-6 me-auto search-input">
+                    <div class="col-md-8 col-sm-12 d-flex flex-column flex-md-row search-input">
                         <input type="text" name="search" value="{{ request('search') }}" placeholder="Search..."
                                class="form-control">
-                    </div>
-                    <div class="col-lg-2 col-12 col-md-4">
                         <select name="sort" class="form-select search-input" onchange="this.form.submit()">
                             <option value="">Select sort</option>
                             <option value="a-z" {{ request('sort') == 'a-z' ? 'selected' : '' }}>Grower name (A-Z)
                             </option>
                             <option
-                                value="last-item-first" {{ request('sort') == 'last-item-first' ? 'selected' : '' }}>
+                                    value="last-item-first" {{ request('sort') == 'last-item-first' ? 'selected' : '' }}>
                                 Last item first
                             </option>
                             <option
-                                value="first-item-last" {{ request('sort') == 'first-item-last' ? 'selected' : '' }}>
+                                    value="first-item-last" {{ request('sort') == 'first-item-last' ? 'selected' : '' }}>
                                 First item last
                             </option>
                         </select>
-                    </div>
-                    <div class="col-lg-2 col-12 col-md-4">
-
                         <select name="grower_id" class="form-select search-input" onchange="this.form.submit()">
                             <option value="">Select grower</option>
                             @foreach($growers as $user)
                                 @if($user->grower)
                                     <option
-                                        value="{{ $user->id }}" {{ request('grower_id') == $user->id ? 'selected' : '' }}>
+                                            value="{{ $user->id }}" {{ request('grower_id') == $user->id ? 'selected' : '' }}>
                                         {{ $user->grower->company_name }}
                                     </option>
                                 @endif
                             @endforeach
                         </select>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 d-flex justify-content-end vri-create">
+                        <a href="{{route('variety-reports.create')}}">Create new variety report</a>
                     </div>
                 </div>
             </form>
@@ -60,8 +52,7 @@
             @foreach($varietyReports as $report)
                 <div class="col-xl-4 col-lg-6 col-md-12">
                     <div class="card card-product-grid admin-variety-report-index">
-
-                            @php
+                        @php
                             if ($report->samples->isNotEmpty()){
                                 $samples = $report->samples;
                                 $lastSample = $samples->last();
@@ -74,14 +65,32 @@
                                 }else{
                                     $lastImage = "/assets/backend/imgs/products/blank_product.png";
                                 }
-                            @endphp
+                        @endphp
 
+                        <div class="admin-variety-report-img-div">
                             <a href="{{ route('variety-reports.show', $report->id) }}">
                                 <img src="{{ asset($lastImage) }}" alt="Product" class="admin-variety-report-img">
                             </a>
 
+                            <div class="vri-icon-box d-flex justify-content-center mt-3">
+                                <a href="{{route('variety-reports.show',$report->id)}}"
+                                   class="dashboard-icon"><i class="icon material-icons md-remove_red_eye"></i></a>
+                                <a href="{{route('variety-reports.edit', $report->id)}}"
+                                   class="dashboard-icon"><i class="icon material-icons md-edit"></i></a>
+                                <form action="{{route('variety-reports.destroy', $report->id)}}" method="POST"
+                                      style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="dashboard-icon me-2"
+                                            onclick="return confirm('Are you sure you want to delete this variety report?')">
+                                        <i class="icon material-icons md-restore_from_trash"></i>
+                                    </button>
+                                </form>
+                            </div>
 
-                        <div class="info-wrap">
+                        </div>
+
+                        <div class="info-wrap vri-contents">
                             <a href="{{route('variety-reports.show', $report->id)}}"
                                class="title">{{ $report->variety_name }}</a>
 
@@ -116,22 +125,6 @@
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Next sample date</span>
                                 <span>{{ json_decode($report->samples_schedule)[0]}}</span>
-                            </div>
-
-                            <div class="d-flex justify-content-center mt-3">
-                                <a href="{{route('variety-reports.show',$report->id)}}"
-                                   class="dashboard-icon"><i class="icon material-icons md-remove_red_eye"></i></a>
-                                <a href="{{route('variety-reports.edit', $report->id)}}"
-                                   class="dashboard-icon"><i class="icon material-icons md-edit"></i></a>
-                                <form action="{{route('variety-reports.destroy', $report->id)}}" method="POST"
-                                      style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="dashboard-icon me-2"
-                                            onclick="return confirm('Are you sure you want to delete this variety report?')">
-                                        <i class="icon material-icons md-restore_from_trash"></i>
-                                    </button>
-                                </form>
                             </div>
                         </div>
                     </div>
