@@ -96,15 +96,15 @@
 
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Grower name</span>
-                                <span>{{ $report->grower->company_name  }}</span>
+                                <span>{{ $report->grower->company_name ?? "N/A"  }}</span>
                             </div>
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Breeder name</span>
-                                <span>{{ $report->breeder->company_name }}</span>
+                                <span>{{ $report->breeder->company_name ?? "N/A"}}</span>
                             </div>
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Trial Location</span>
-                                <span>{{ $report->grower->company_name  }}</span>
+                                <span>{{ $report->grower->company_name  ?? "N/A" }}</span>
                             </div>
                             <div class="d-flex justify-content-between sub-items">
                                 <span class="name">Date of propagation</span>
