@@ -27,6 +27,7 @@
                             <label for="grower_id" class="form-label">Grower Name</label>
                             <select name="grower_id" class="form-select @error('grower_id') is-invalid @enderror"
                                     id="grower_id">
+                                <option value="">Select Grower</option>
                                 @foreach($growers as $user)
                                     @if($user->grower)
                                         <option value="{{ $user->id }}">{{ $user->grower->company_name }}</option>
@@ -42,6 +43,7 @@
                             <label for="breeder_id" class="form-label">Breeder Name</label>
                             <select name="breeder_id" class="form-select @error('breeder_id') is-invalid @enderror"
                                     id="breeder_id">
+                                <option value="">Select Breeder</option>
                                 @foreach($breeders as $user)
                                     @if($user->breeder)
                                         <option value="{{ $user->id }}">{{ $user->breeder->company_name }}</option>

@@ -57,8 +57,8 @@ class AdminVarietyReportController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'variety_name' => 'required|string|max:255|unique:variety_reports',
-            'breeder_id' => 'required|exists:users,id',
-            'grower_id' => 'required|exists:users,id',
+            'breeder_id' => 'nullable|exists:users,id',
+            'grower_id' => 'nullable|exists:users,id',
             'amount_of_plants' => 'required|integer|min:1',
             'pot_size' => 'nullable|string|max:255',
             'pot_trial' => 'required|boolean',
@@ -113,8 +113,8 @@ class AdminVarietyReportController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'variety_name' => 'required|string|max:255|unique:variety_reports,variety_name,' . $id,
-            'breeder_id' => 'required|exists:users,id',
-            'grower_id' => 'required|exists:users,id',
+            'breeder_id' => 'nullable|exists:users,id',
+            'grower_id' => 'nullable|exists:users,id',
             'amount_of_plants' => 'required|integer|min:1',
             'pot_size' => 'nullable|string|max:255',
             'pot_trial' => 'required|boolean',

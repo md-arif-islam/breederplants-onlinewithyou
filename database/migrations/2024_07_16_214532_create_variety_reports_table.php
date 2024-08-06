@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('variety_reports', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->integer('grower_id');
-            $table->integer('breeder_id');
+            $table->integer('grower_id')->nullable();
+            $table->integer('breeder_id')->nullable();
             $table->string('variety_name');
             $table->bigInteger('amount_of_plants');
             $table->string('pot_size')->nullable();
