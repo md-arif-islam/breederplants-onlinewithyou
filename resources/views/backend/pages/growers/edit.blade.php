@@ -37,13 +37,7 @@
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="mb-4">
-                    <label for="company_email" class="form-label">Company Email</label>
-                    <input type="email" name="company_email" class="form-control" id="company_email" value="{{ $grower->company_email }}" placeholder="Enter company email" required>
-                    @error('company_email')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
+
                 <div class="mb-4">
                     <label for="contact_person" class="form-label">Contact Person</label>
                     <input type="text" name="contact_person" class="form-control" id="contact_person" value="{{ $grower->contact_person }}" placeholder="Enter contact person">
@@ -104,8 +98,8 @@
                     @enderror
                 </div>
                 <div class="mb-4">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" value="{{ $grower->user->email }}" placeholder="Enter email" required>
+                    <label for="email" class="form-label">Company Email</label>
+                    <input type="email" name="email" class="form-control" id="email" value="{{ $grower->user->email }}" placeholder="Enter company email" required>
                     @error('email')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -193,7 +187,7 @@
             } else {
                 passwordField.type = "password";
                 passwordConfirmField.type = "password";
-                showHideButton.innerText = "Show";
+                showHideButton.innerText = "Show"; emai
             }
         }
     </script>

@@ -28,7 +28,7 @@
                 <div class="table-row header">
                     <div class="cell">Grower ID</div>
                     <div class="cell">Name</div>
-                    <div class="cell">Email</div>
+                    <div class="cell">Company Email</div>
                     <div class="cell">Company</div>
                     <div class="cell">Contact</div>
                     <div class="cell">Street</div>

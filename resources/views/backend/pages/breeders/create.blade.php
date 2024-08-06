@@ -27,14 +27,7 @@
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="mb-4">
-                    <label for="company_email" class="form-label">Company Email</label>
-                    <input type="email" name="company_email" class="form-control" id="company_email"
-                           placeholder="Enter company email" value="{{ old('company_email') }}" required>
-                    @error('company_email')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
+
                 <div class="mb-4">
                     <label for="contact_person" class="form-label">Contact Person</label>
                     <input type="text" name="contact_person" class="form-control" id="contact_person"
@@ -93,8 +86,7 @@
                 </div>
 
                 <hr>
-
-                <h4>User details</h4>
+                <h4>Users details</h4>
                 <div class="mb-4">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" name="name" class="form-control" id="name" placeholder="Enter name"
@@ -104,8 +96,8 @@
                     @enderror
                 </div>
                 <div class="mb-4">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter email"
+                    <label for="email" class="form-label">Company Email</label>
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter company email"
                            value="{{ old('email') }}" required>
                     @error('email')
                     <span class="text-danger">{{ $message }}</span>
@@ -134,7 +126,6 @@
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-
 
                 <div class="mb-4">
                     <label for="status" class="form-label">Status</label>

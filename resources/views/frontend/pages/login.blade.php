@@ -15,7 +15,7 @@
                             </div>
                             <div class="heading_s1 my-5">
                                 <h2 class="login-page-heading">Welcome User!</h2>
-                                <p class="login-page-text" >Enter your Email address and Password and enjoy our app</p>
+                                <p class="login-page-text" >Enter your Company Email address and Password and enjoy our app</p>
                             </div>
                             <div class="col-lg-12 mt-5">
                                 <div class="login_wrap widget-taber-content background-white border-radius-10 mb-md-5 mb-lg-0 mb-sm-5">
@@ -23,7 +23,7 @@
                                         <form method="POST" action="{{ route('login') }}">
                                             @csrf
                                             <div class="form-group">
-                                                <input type="email" required name="email" placeholder="Email" class="form-control login-page-input @error('email') is-invalid @enderror">
+                                                <input type="email" required name="email" placeholder="Company Email" class="form-control login-page-input @error('email') is-invalid @enderror">
                                                 @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

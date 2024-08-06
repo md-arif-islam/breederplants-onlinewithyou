@@ -15,25 +15,18 @@
             </div>
 
             <div class="mb-4">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" value="{{ $breeder->user->email }}" disabled>
-            </div>
-
-            <div class="mb-4">
                 <label for="company_name" class="form-label">Company Name</label>
                 <input type="text" class="form-control" id="company_name" value="{{ $breeder->company_name }}" disabled>
             </div>
 
             <div class="mb-4">
-                <label for="company_email" class="form-label">Company Email</label>
-                <input type="email" class="form-control" id="company_email" value="{{ $breeder->company_email }}"
-                       disabled>
+                <label for="email" class="form-label">Company Email</label>
+                <input type="email" class="form-control" id="email" value="{{ $breeder->user->email }}" disabled>
             </div>
 
             <div class="mb-4">
                 <label for="contact_person" class="form-label">Contact Person</label>
-                <input type="text" class="form-control" id="contact_person" value="{{ $breeder->contact_person }}"
-                       disabled>
+                <input type="text" class="form-control" id="contact_person" value="{{ $breeder->contact_person }}" disabled>
             </div>
 
             <div class="mb-4">
@@ -68,8 +61,7 @@
 
             <div class="mb-4">
                 <label for="status" class="form-label">Status</label>
-                <input type="text" class="form-control" id="status"
-                       value="{{ $breeder->user->status == 'active' ? 'Active' : 'Inactive' }}" disabled>
+                <input type="text" class="form-control" id="status" value="{{ $breeder->user->status == 'active' ? 'Active' : 'Inactive' }}" disabled>
             </div>
 
             <div class="row">
@@ -77,7 +69,7 @@
                     <a href="{{ route('breeders.edit', $breeder->id) }}" class="btn btn-primary">Edit Breeder</a>
                 </div>
                 <div class="col text-end">
-                    <form action="{{ route('breeders.destroy', $breeder->id) }}" method="POST">
+                    <form action="{{ route('breeders.destroy', $breeder->id) }}" method="POST" onsubmit="return confirmDelete()">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete Breeder</button>
@@ -86,6 +78,12 @@
             </div>
         </div>
 
-    </section>
+    </section> <!-- content-main end// -->
+
+    <script>
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this breeder? This action cannot be undone.');
+        }
+    </script>
 
 @endsection

@@ -15,18 +15,13 @@
             </div>
 
             <div class="mb-4">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" value="{{ $grower->user->email }}" disabled>
-            </div>
-
-            <div class="mb-4">
                 <label for="company_name" class="form-label">Company Name</label>
                 <input type="text" class="form-control" id="company_name" value="{{ $grower->company_name }}" disabled>
             </div>
 
             <div class="mb-4">
-                <label for="company_email" class="form-label">Company Email</label>
-                <input type="email" class="form-control" id="company_email" value="{{ $grower->company_email }}" disabled>
+                <label for="email" class="form-label">Company Email</label>
+                <input type="email" class="form-control" id="email" value="{{ $grower->user->email }}" disabled>
             </div>
 
             <div class="mb-4">
@@ -71,18 +66,24 @@
 
             <div class="row">
                 <div class="col">
-                    <a href="{{ route('growers.edit', $grower->id) }}" class="btn btn-primary">Edit Breeder</a>
+                    <a href="{{ route('growers.edit', $grower->id) }}" class="btn btn-primary">Edit Grower</a>
                 </div>
                 <div class="col text-end">
-                    <form action="{{ route('growers.destroy', $grower->id) }}" method="POST">
+                    <form action="{{ route('growers.destroy', $grower->id) }}" method="POST" onsubmit="return confirmDelete()">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete Breeder</button>
+                        <button type="submit" class="btn btn-danger">Delete Grower</button>
                     </form>
                 </div>
             </div>
         </div>
 
     </section> <!-- content-main end// -->
+
+    <script>
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this grower? This action cannot be undone.');
+        }
+    </script>
 
 @endsection
